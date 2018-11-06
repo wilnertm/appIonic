@@ -1,10 +1,19 @@
 
 <ion-header>
-
   <ion-navbar>
-    <ion-title>departamento</ion-title>
+      <ion-row>
+          <ion-col col-12 col-md-6>
+            <!-- <button ion-button (click)="goto()">
+              Home
+            </button> -->
+            <button ion-button (click)="goto('ciudad')">Ciudades</button>
+            <button ion-button (click)="goto('usuario')" >Usuarios</button>
+          </ion-col>
+          <ion-col col-12 col-md-6 style="display: flex;text-align: end;">
+            <ion-title>Ciudad</ion-title>
+          </ion-col>
+        </ion-row>    
   </ion-navbar>
-
 </ion-header>
 
 
