@@ -7,6 +7,7 @@
                         <div class="col">Detalle</div>
                         <div class="col">Nombres</div>
                         <div class="col">Apellidos</div>
+                        <div class="col">Email</div>
                         <div class="col" >Ciudad</div>
                         <div class="col" >Departamento</div>
                         <div class="col" style="text-align: center;">Eliminar</div>
@@ -15,6 +16,7 @@
                         <div class="col"><a (click)="encontrar(selected=usuario)" style="cursor:pointer;"><ion-icon name="eye"></ion-icon></a></div>
                         <div class="col">{{usuario.nombres}}</div>
                         <div class="col">{{usuario.apellidos}}</div>
+                        <div class="col">{{usuario.email}}</div>
                         <div class="col">{{usuario.ciudades?.nombre}}</div>
                         <div class="col">{{usuario.ciudades?.departamentos?.nombre}}</div>
                         <div class="col" style="display: flex;justify-content: center;">
@@ -50,7 +52,7 @@
                                     </ion-item>  
                                 <ion-item>
                                         <ion-label color="primary">Email</ion-label>
-                                        <ion-input type="email" [(ngModel)]="detail.email" name="email" required id="email" 
+                                        <ion-input type="email" [(ngModel)]="detail.email" (blur)="validarEmail(detail.email)" name="email" required id="email" 
                                             #email="ngModel" #spy></ion-input>
                                             <!-- <br>   TODO: remove this: {{spy.nombre}} -->
                                         <ion-col [hidden]="email.valid || email.pristine">
