@@ -24,7 +24,7 @@ export class CiudadPage {
   goto(page){
     switch (page) {
       case "departamento":
-        this.navCtrl.push("ciudad")
+        this.navCtrl.push("departamento")
         break;
 
       case "usuario":
