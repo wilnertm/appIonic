@@ -29,7 +29,7 @@
                 <div *ngIf="form">
                     <form (ngSubmit)="crear()" #crearCiudad="ngForm">
                         <div>
-                            <ion-item>
+                            <ion-item style="padding: 0;">
                             <ion-label color="primary">Nombre</ion-label>
                             <ion-input  [(ngModel)]="detail.nombre" name="nombre" required id="nombre" 
                                 #nombre="ngModel" #spy></ion-input>
@@ -38,7 +38,7 @@
                                 Nombre Requerido
                             </div>  
                             </ion-item>
-                            <ion-item>
+                            <ion-item style="padding: 0;">
                                 <ion-label>Departamento</ion-label>
                                 <ion-select [(ngModel)]="detail.id_departamento" name="id" required>
                                     <ion-option value="" disabled selected>Departamento</ion-option>
@@ -47,10 +47,10 @@
                             </ion-item>
                         </div>
                         <button ion-button type="submit" [disabled]="!crearCiudad.form.valid">
-                          Crear
+                            Crear
                         </button>
                         <button ion-button type="button"  *ngIf="form" (click)="form=false" color="light">
-                          <ion-icon name="close-circle"></ion-icon>
+                            <ion-icon name="close-circle"></ion-icon>
                         </button>
                     </form>
                 </div>
