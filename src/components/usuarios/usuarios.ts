@@ -34,13 +34,6 @@ public selected:any={}
         console.log("ciudades",this.ciudades);
         
       })
-
-      this.test.generalGet(`/departamento`)
-      .then(data =>{
-        this.departamentos=data;
-        console.log("departamentos",this.departamentos);
-        
-      })
   }
 
   encontrar(data){

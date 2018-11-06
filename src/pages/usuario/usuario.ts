@@ -12,7 +12,6 @@ export class UsuarioPage {
 
   ciudadPage = "ciudad"
   departamentoPage = "departamento"
-  detailDepartamentoPage = "detail-departamento"
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }

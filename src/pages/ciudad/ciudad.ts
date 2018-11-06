@@ -12,6 +12,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class CiudadPage {
 
+  DepartamentoPage = "departamento"
+  UsuarioPage = "usuario"
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
