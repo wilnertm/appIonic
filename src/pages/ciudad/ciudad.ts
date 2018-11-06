@@ -19,4 +19,19 @@ export class CiudadPage {
     console.log('ionViewDidLoad CiudadPage');
   }
 
+  goto(page){
+    switch (page) {
+      case "departamento":
+        this.navCtrl.push("departamento")
+        break;
+
+      case "usuario":
+        this.navCtrl.push("usuario")
+        break;
+    
+      default:
+        break;
+    }
+  }
+
 }
