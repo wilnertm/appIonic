@@ -1,0 +1,18 @@
+<ion-header>
+        <ion-navbar>
+            <ion-title>Home</ion-title>
+        </ion-navbar>
+    </ion-header> 
+<ion-content>
+    <ion-grid>
+        <ion-row style="height: 23em;display: flex;align-items: center;">
+            <ion-col col-100 col-center>
+                <button ion-button (click)="goto('departamento')">Departamentos</button>
+                <button ion-button (click)="goto('ciudad')" >Ciudades</button>
+                <button ion-button (click)="goto('usuario')" >Usuarios</button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
+
+

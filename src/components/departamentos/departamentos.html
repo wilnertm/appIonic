@@ -1,0 +1,81 @@
+<ion-content style="align-items:center;">
+  <ion-grid>
+    <ion-row col-12 style="display: flex;justify-content: space-between;">
+      <ion-col col-9 style="display: flex;justify-content: center;">
+        <ion-list style="width: 50%;">
+            <div class="row header">
+              <div class="col">Detalle</div>
+              <div class="col">Nombre</div>
+              <div class="col" style="text-align: center;">Ciuades</div>
+              <div class="col">Eliminar</div>
+            </div>
+            <div class="row" *ngFor="let departamento of departamentos">
+              <div class="col"><a (click)="encontrar(selected=departamento)" style="cursor:pointer;"><ion-icon name="eye"></ion-icon></a></div>
+              <div class="col">{{departamento.nombre}}</div>
+              <div class="col" style="display: flex;
+              justify-content: center;"><ion-badge>{{departamento.ciudades.length}}</ion-badge></div>
+              <div class="col" style="display: flex;justify-content: center;">
+                  <button ion-button type="button" (click)="eliminar(departamento.id)" color="light" style="height: 1.5em;">
+                      <ion-icon name="close-circle"></ion-icon>
+                    </button>
+              </div>
+            </div>
+          </ion-list>
+      </ion-col>
+
+      <ion-col col-3 style="display: flex;justify-content: center;align-items: center;">
+          <button ion-button *ngIf="!form" (click)="form=true"  >Crear Departamento</button>
+          <div *ngIf="form">
+            <form (ngSubmit)="crear()" #crearDepartamento="ngForm">
+              <div>
+                  <ion-item>
+                    <ion-label color="primary">Nombre</ion-label>
+                    <ion-input  [(ngModel)]="detail.nombre" name="nombre" required id="nombre" 
+                      #nombre="ngModel" #spy></ion-input>
+                      <!-- <br>   TODO: remove this: {{spy.className}} -->
+                    <div [hidden]="nombre.form?.valid || nombre.form?.pristine">
+                        Nombre Requerido
+                    </div>  
+                  </ion-item>
+              </div>
+              <button ion-button type="submit" [disabled]="!crearDepartamento.form.valid">
+                Crear
+              </button>
+              <button ion-button type="button"  *ngIf="form" (click)="form=false" color="light">
+                <ion-icon name="close-circle"></ion-icon>
+              </button>
+            </form>
+          </div>
+      </ion-col>
+    </ion-row>
+    <ion-row col-12>
+      <ion-col col-9 style="display: flex;justify-content: center;">
+        <div *ngIf="idSelected!=''"   [id]="idSelected">
+          <ion-card>
+            <ion-card-header>
+              <ion-row>
+                <ion-col col-6>
+                    {{detail.nombre}}
+                </ion-col>
+                <ion-col style="display: flex;justify-content: flex-end;">
+                  <button ion-button type="button" (click)="idSelected=''" color="light">
+                    <ion-icon name="close-circle"></ion-icon>
+                  </button>
+                </ion-col>
+              </ion-row>
+            </ion-card-header>
+            <ion-card-content>
+              The British use the term "header", but the American term "head-shot" the English simply refuse to adopt.
+            </ion-card-content>
+              <ion-row>
+                <form  (ngSubmit)="actualizar(detail.id)" style="width: 100%;display: flex;">
+                    <button ion-button type="submit" >Actualizar</button>
+                  <ion-input [(ngModel)]="detail.nombre" name="Nombre Ciudad"></ion-input>
+                </form> 
+              </ion-row> 
+          </ion-card>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

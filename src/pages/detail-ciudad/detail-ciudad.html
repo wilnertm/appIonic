@@ -1,0 +1,35 @@
+<ion-header>
+
+    <ion-navbar>
+      <ion-col style="display: flex;justify-content: flex-end;">
+        <ion-title>{{details.nombre}}</ion-title>
+          <button ion-button type="button" (click)="closeModal()" color="light">
+            <ion-icon name="close-circle"></ion-icon>
+          </button>
+      </ion-col>
+    </ion-navbar>
+  
+</ion-header>
+  
+  
+  <ion-content padding>
+    <ion-row col-12>
+      <ion-col col-9 style="display: flex;justify-content: center;">
+        <div >
+              <ion-row>
+                <ion-col col-12>
+                    <span>Código: {{details.id}}</span> <br>
+                    <span>Nombre: {{details.nombre}}</span><br>
+                    <span>Cantidad de Usuarios: {{details.usuarios?.length}}</span>
+                </ion-col>
+              </ion-row>
+              <ion-row style="background-color: #c5d0d0">
+                <form  (ngSubmit)="actualizar(details.id)" style="width: 100%;display: flex;">
+                    <button ion-button type="submit" >Actualizar</button>
+                  <ion-input [(ngModel)]="detail.nombre" name="Nombre Ciudad"></ion-input>
+                </form> 
+              </ion-row> 
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-content>

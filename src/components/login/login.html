@@ -1,0 +1,35 @@
+<ion-content>
+  <ion-grid>
+      <ion-row style="height: 23em;display: flex;align-items: center;justify-content: center;">
+        <ion-col col-12 col-md-3>
+          <ion-card>
+              <ion-card-header>
+                Inicio De Sesion
+              </ion-card-header>
+              <ion-card-content > <!-- style="height: 13em;" -->
+                <ion-row style="display: flex;align-items: center;justify-content: center;">
+                    <ion-col col-12>
+                        <form (ngSubmit)="login()" #loginForm="ngForm" style="text-align: center;">
+                          <!-- <form (ngSubmit)="login()"  style="text-align: center;"> -->
+                            <div>
+                                <ion-item>
+                                  <ion-label color="primary">Email</ion-label>
+                                  <ion-input  name="email" [(ngModel)]="detail.email" required id="email" ></ion-input>  
+                                </ion-item>
+                                <ion-item>
+                                  <ion-label color="primary">Password</ion-label>
+                                  <ion-input type="password" [(ngModel)]="detail.password" name="password" required id="password" ></ion-input>
+                                </ion-item>
+                            </div>
+                            <button ion-button [disabled]="!loginForm.form.valid" type="submit">
+                              Crear
+                            </button>
+                        </form>
+                    </ion-col>
+                </ion-row>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+      </ion-row>
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,60 @@
+<ion-content style="align-items:center;">
+    <ion-grid>
+        <ion-row col-12 style="display: flex;justify-content: space-between;">
+            <ion-col col-9 style="display: flex;justify-content: center">
+                <ion-list style="width: 50%;">
+                    <div class="row header">
+                    <div class="col">Detalle</div>
+                    <div class="col">Nombre</div>
+                    <div class="col">Departamento</div>
+                    <div class="col" style="text-align: center;">Usuarios</div>
+                    <div class="col">Eliminar</div>
+                    </div>
+                    <div class="row" *ngFor="let ciudad of ciudades">
+                        <div class="col"><a (click)="encontrar(selected=ciudad)" style="cursor:pointer;"><ion-icon name="eye"></ion-icon></a></div>
+                        <div class="col">{{ciudad.nombre}}</div>
+                        <div class="col">{{ciudad.departamentos?.nombre}}</div>
+                        <div class="col" style="display: flex;
+                        justify-content: center;"><ion-badge>{{ciudad.usuarios.length}}</ion-badge></div>
+                        <div class="col" style="display: flex;justify-content: center;">
+                            <button ion-button type="button" (click)="eliminar(ciudad.id)" color="light" style="height: 1.5em;">
+                                <ion-icon name="close-circle"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                </ion-list>
+            </ion-col>
+            <ion-col col-3 style="display: flex;justify-content: center;align-items: center">
+                <button ion-button *ngIf="!form" (click)="form=true"  >Crear Ciudad</button>
+                <div *ngIf="form">
+                    <form (ngSubmit)="crear()" #crearCiudad="ngForm">
+                        <div>
+                            <ion-item>
+                            <ion-label color="primary">Nombre</ion-label>
+                            <ion-input  [(ngModel)]="detail.nombre" name="nombre" required id="nombre" 
+                                #nombre="ngModel" #spy></ion-input>
+                                <!-- <br>   TODO: remove this: {{spy.className}} -->
+                            <div [hidden]="nombre.form?.valid || nombre.form?.pristine">
+                                Nombre Requerido
+                            </div>  
+                            </ion-item>
+                            <ion-item>
+                                <ion-label>Departamento</ion-label>
+                                <ion-select [(ngModel)]="detail.id_departamento" name="id" required>
+                                    <ion-option value="" disabled selected>Departamento</ion-option>
+                                    <ion-option *ngFor="let departamento of departamentos" [value]="departamento.id">{{departamento.nombre}}</ion-option>
+                                </ion-select>
+                            </ion-item>
+                        </div>
+                        <button ion-button type="submit" [disabled]="!crearCiudad.form.valid">
+                          Crear
+                        </button>
+                        <button ion-button type="button"  *ngIf="form" (click)="form=false" color="light">
+                          <ion-icon name="close-circle"></ion-icon>
+                        </button>
+                    </form>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
