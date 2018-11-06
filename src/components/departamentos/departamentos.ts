@@ -19,6 +19,7 @@ export class DepartamentosComponent {
   public details:any[]=[]
   public idSelected:string=""
   public selected: any={}
+  public form: boolean
 
   ngOnInit(): void {
     this.test.generalGet(`/departamento`)
