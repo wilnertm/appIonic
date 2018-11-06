@@ -18,4 +18,19 @@ export class DepartamentoPage {
     console.log('ionViewDidLoad DepartamentoPage');
   }
 
+  goto(page){
+    switch (page) {
+      case "usuario":
+        this.navCtrl.push("usuario")
+        break;
+    
+      case "ciudad":
+        this.navCtrl.push("ciudad")
+        break;
+
+      default:
+        break;
+    }
+  }
+
 }
