@@ -1,5 +1,5 @@
 import { ModalController } from 'ionic-angular';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { TestProvider } from '../../providers/test/test';
 import { NgForm } from '@angular/forms';
 
@@ -12,6 +12,7 @@ departamentos:any[]=[]
 usuarios: any[]=[]
 ciudades:any[]=[]
 detail: any={}
+details: any={}
 public form:boolean;
 public selected:any={}
 
@@ -49,6 +50,24 @@ public selected:any={}
         location.reload()
         
       })
+  }
+
+  validarEmail(email){
+    this.test.generalPost(`/usuario/email`,{
+      email:this.detail.email
+    })
+    .then( data =>{
+      this.details=data;
+        if(!this.details.email  == this.detail.email ){
+          console.log("El usuario se puede crear");
+        }if(this.detail.email != null && this.details.email  == this.detail.email){
+        alert('El email ya existe')
+          this.detail.email = null;
+        }
+      
+      console.log("Validación de email", this.detail);
+      
+    })
   }
 
   eliminar(id){

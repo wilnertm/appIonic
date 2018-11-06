@@ -52,7 +52,7 @@
                                     </ion-item>  
                                 <ion-item>
                                         <ion-label color="primary">Email</ion-label>
-                                        <ion-input type="email" [(ngModel)]="detail.email" name="email" required id="email" 
+                                        <ion-input type="email" [(ngModel)]="detail.email" (blur)="validarEmail(detail.email)" name="email" required id="email" 
                                             #email="ngModel" #spy></ion-input>
                                             <!-- <br>   TODO: remove this: {{spy.nombre}} -->
                                         <ion-col [hidden]="email.valid || email.pristine">
