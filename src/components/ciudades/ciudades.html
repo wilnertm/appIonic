@@ -1,8 +1,8 @@
 <ion-content style="align-items:center;">
     <ion-grid>
-        <ion-row col-12 style="display: flex;justify-content: space-between;">
-            <ion-col col-9 style="display: flex;justify-content: center">
-                <ion-list style="width: 50%;">
+        <ion-row col-12 style="justify-content: center;">
+            <ion-col col-12 col-md-9 style="display: flex;justify-content: center">
+                <ion-list style="width: 100%;">
                     <div class="row header">
                     <div class="col">Detalle</div>
                     <div class="col">Nombre</div>
@@ -24,7 +24,7 @@
                     </div>
                 </ion-list>
             </ion-col>
-            <ion-col col-3 style="display: flex;justify-content: center;align-items: center">
+            <ion-col col-12 col-md-3 style="display: flex;justify-content: center;align-items: center">
                 <button ion-button *ngIf="!form" (click)="form=true"  >Crear Ciudad</button>
                 <div *ngIf="form">
                     <form (ngSubmit)="crear()" #crearCiudad="ngForm">
