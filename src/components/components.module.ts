@@ -6,6 +6,7 @@ import { NavbarComponent } from './navbar/navbar';
 import { FooterComponent } from './footer/footer'; 
 import { IonicModule } from 'ionic-angular';
 import { FormsModule } from '@angular/forms';
+import {FullCalendarModule} from 'primeng/fullcalendar';
 import { SearchPipe } from '../pipes/search/search';
 import { SortPipe } from '../pipes/sort/sort';
 import { LoginComponent } from './login/login';
@@ -21,7 +22,7 @@ import { CalendarComponent } from './calendar/calendar';
         SortPipe,
     LoginComponent,
     CalendarComponent],
-    imports: [IonicModule,FormsModule,],
+    imports: [IonicModule,FormsModule,FullCalendarModule],
     exports: [DepartamentosComponent,
         CiudadesComponent,
         UsuariosComponent,

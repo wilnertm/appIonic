@@ -1,11 +1,5 @@
 import { Component } from '@angular/core';
 
-/**
- * Generated class for the CalendarComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'calendar',
   templateUrl: 'calendar.html'
@@ -13,10 +7,37 @@ import { Component } from '@angular/core';
 export class CalendarComponent {
 
   text: string;
+  events:any []
 
   constructor() {
     console.log('Hello CalendarComponent Component');
-    this.text = 'Hello World';
   }
+
+  ngOnInit() {
+    this.events = [
+        {
+            "title": "All Day Event",
+            "start": "2016-01-01"
+        },
+        {
+            "title": "Long Event",
+            "start": "2016-01-07",
+            "end": "2016-01-10"
+        },
+        {
+            "title": "Repeating Event",
+            "start": "2016-01-09T16:00:00"
+        },
+        {
+            "title": "Repeating Event",
+            "start": "2016-01-16T16:00:00"
+        },
+        {
+            "title": "Conference",
+            "start": "2016-01-11",
+            "end": "2016-01-13"
+        }
+    ];
+}
 
 }

@@ -1,3 +1,4 @@
+import { AboutPage } from './../about/about';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
@@ -10,6 +11,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class UsuarioPage {
 
+  AboutPage;
   ciudadPage = "ciudad"
   departamentoPage = "departamento"
 
@@ -34,8 +36,8 @@ export class UsuarioPage {
       this.navCtrl.push("usuario")
       break;
 
-      case "detail-departamento":
-      this.navCtrl.push("detail-departamento")
+      case "about":
+      this.navCtrl.push(AboutPage)
       break;
     
       default:
