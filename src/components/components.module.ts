@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { SearchPipe } from '../pipes/search/search';
 import { SortPipe } from '../pipes/sort/sort';
 import { LoginComponent } from './login/login';
+import { CalendarComponent } from './calendar/calendar';
 
 @NgModule({
     declarations: [DepartamentosComponent,
@@ -18,7 +19,8 @@ import { LoginComponent } from './login/login';
         FooterComponent,
         SearchPipe,
         SortPipe,
-    LoginComponent],
+    LoginComponent,
+    CalendarComponent],
     imports: [IonicModule,FormsModule,],
     exports: [DepartamentosComponent,
         CiudadesComponent,
@@ -27,6 +29,7 @@ import { LoginComponent } from './login/login';
         FooterComponent,
         SearchPipe,
         SortPipe,
-    LoginComponent]
+    LoginComponent,
+    CalendarComponent]
 })
 export class ComponentsModule { }
