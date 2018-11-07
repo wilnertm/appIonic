@@ -12,7 +12,7 @@
                         <div class="col" >Departamento</div>
                         <div class="col" style="text-align: center;">Eliminar</div>
                     </div>
-                    <div class="row" *ngFor="let usuario of usuarios">
+                    <div class="row" *ngFor="let usuario of usuarios" data-as-sortable-item>
                         <div class="col"><a (click)="encontrar(selected=usuario)" style="cursor:pointer;"><ion-icon name="eye"></ion-icon></a></div>
                         <div class="col">{{usuario.nombres}}</div>
                         <div class="col">{{usuario.apellidos}}</div>
