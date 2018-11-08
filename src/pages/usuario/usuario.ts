@@ -36,13 +36,8 @@ export class UsuarioPage {
       this.navCtrl.push("usuario")
       break;
 
-<<<<<<< HEAD
-      case "detail-departamento":
-      this.navCtrl.push("detail-departamento")
-=======
       case "about":
       this.navCtrl.push(AboutPage)
->>>>>>> desarrollo
       break;
     
       default:
