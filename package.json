@@ -1,6 +1,8 @@
 {
   "name": "appIonic",
-  "config":{"ionic_copy": "./config/config.js"},
+  "config": {
+    "ionic_copy": "./config/config.js"
+  },
   "version": "0.0.1",
   "author": "Ionic Framework",
   "homepage": "http://ionicframework.com/",
@@ -28,6 +30,7 @@
     "fullcalendar": "^4.0.0-alpha.2",
     "ionic-angular": "3.9.2",
     "ionicons": "3.0.0",
+    "moment": "^2.22.2",
     "primeicons": "^1.0.0",
     "primeng": "^7.0.0-beta.1",
     "rxjs": "5.5.11",
