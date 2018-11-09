@@ -24,7 +24,7 @@
             </ion-row>
             <ion-row>
                 <ion-col col-12>
-                    <ion-input [(ngModel)]="asunto" name="Asunto" required placeholder="Asunto"></ion-input>
+                    <ion-input [(ngModel)]="resultados.asunto" name="Asunto" placeholder="Asunto"></ion-input>
                 </ion-col>
                 <ion-col col-12>
                     <p-calendar [(ngModel)]="fechaInicio" name="Fecha Inicial" required></p-calendar>
@@ -47,7 +47,7 @@
         </ion-row>
         <form #crearActividad="ngForm" (ngSubmit)="crear()">
             <ion-row style="display: flex;justify-content: center;">
-                <ion-col col-12 col-md-4 col-md-push-4>
+                <ion-col col-12 col-md-5>
                     <ion-input [(ngModel)]="asunto" name="Asunto" placeholder="Asunto" style="margin-top: .5em;" required></ion-input>
                     <ion-col style="margin-top: .5em;">
                         <p-calendar [(ngModel)]="fechaInicio" name="Fecha Inicial" placeholder="Fecha Inicial" required></p-calendar>

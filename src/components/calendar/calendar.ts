@@ -27,10 +27,13 @@ export class CalendarComponent {
         allDay: true,
         //Eventos emitidos por el calendar
         dateClick:(event, jsEvent, view) =>{
-            // alert('Date: ' + info.dateStr);
+            // console.log(event.date);
+            
             if(!event.event){
-                this.crear();
-            }else{
+                // console.log(event.date);
+                this.crear(event.date);
+            }
+            else{
                 this.encontrar(event.event.id)
                 //Pasando el id del evento para el modal del detalle para que se ejecute la función encontrar
             }
@@ -78,9 +81,9 @@ export class CalendarComponent {
             //Igualando los datos del get a los eventos del calendario
         })
     }
-    crear(){
+    crear(date){
         console.log("creando");
-        let modal=this.modal.create("detail-calendar")
+        let modal=this.modal.create("detail-calendar",{event:date})
         modal.onDidDismiss(data => {
             location.reload()
             console.log(data);

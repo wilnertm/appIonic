@@ -34,9 +34,10 @@ export class DetailCalendarPage {
       this.detail = this.navParams.get('data')
       this.detalle(this.detail);
     }
-    // else{
-    //   this.navCtrl.pop()
-    // }
+    else{
+      console.log("Datos", this.navParams.get('event'));
+      this.fechaInicio = this.navParams.get('event')
+    }
   }
 
   detalle(id) {
@@ -64,7 +65,7 @@ export class DetailCalendarPage {
       .then(data => {
         this.detail = data;
         console.log("Actualizando", this.detail);
-        
+        this.closeModal()
       })
   }
 
