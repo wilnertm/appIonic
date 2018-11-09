@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { TestProvider } from '../../providers/test/test';
 import { ModalController } from 'ionic-angular';
+import { months } from 'moment';
 
 @Component({
     selector: 'calendar',
@@ -42,8 +43,29 @@ export class CalendarComponent {
             console.log("prueba",event.event)
             this.actualizar(event.event.id,event.event)
             //pasando el id del evento y el evento completo al arrastrarlo en el calendario para que se ejecute la función actualizar
+        },
+        header: {
+            center: 'mes,semana,dia', // buttons for switching between views
+        },
+        views: {
+            semana: {
+                type: 'agenda',
+                duration: { days: 7 },
+                buttonText: 'Semana'
+            },
+            mes:{
+                type: 'basic',
+                duration: {months: 1},
+                buttonText: 'Mes'
+            },
+            dia:{
+                type: 'agenda',
+                duration: {days: 1},
+                buttonText: 'Día'
+            }
         }
     }
+
     constructor(
         private test:TestProvider,
         private modal:ModalController,
@@ -59,10 +81,18 @@ export class CalendarComponent {
     crear(){
         console.log("creando");
         let modal=this.modal.create("detail-calendar")
+        modal.onDidDismiss(data => {
+            location.reload()
+            console.log(data);
+        });
         modal.present();
     }
     encontrar(id){
         let modal=this.modal.create("detail-calendar", {data:id})
+        modal.onDidDismiss(data => {
+            location.reload()
+            console.log(data);
+        });
         modal.present();
     }
     actualizar(id,event){

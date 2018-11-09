@@ -13,7 +13,7 @@ import { FormGroup, FormControl } from '@angular/forms';
   templateUrl: 'detail-calendar.html',
 })
 export class DetailCalendarPage {
-
+  title:any  = "Crear Actividad"
   details: any = {}
   detail: any = {}
   resultados: any = {}
@@ -21,6 +21,7 @@ export class DetailCalendarPage {
   public fecha_fin: string
   public fechaInicio: Date
   public fechaFin: Date; 
+  public asunto:string;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -42,6 +43,7 @@ export class DetailCalendarPage {
     this.test.generalGet(`/actividad/${id}`, this.detail)
       .then(data => {
         this.resultados = data;
+        this.title = this.resultados.asunto;
         // this.fechaFin = new Date(moment(this.resultados.fecha_fin).toDate())
         this.fechaInicio = new Date(moment(this.resultados.fecha_inicio).toDate())
         if(this.resultados.fecha_fin != null){
@@ -54,16 +56,33 @@ export class DetailCalendarPage {
   }
 
   actualizar(id) {
-    this.test.generalPut(`/actividad/${id}`, {fechaInicio:this.fechaInicio,fechaFin:moment(this.fechaFin).add(5, 'h').format()})
+    this.test.generalPut(`/actividad/${id}`, {
+      fechaInicio:this.fechaInicio,
+      fechaFin:moment(this.fechaFin).add(5, 'h').format(),
+      asunto: this.asunto
+    })
       .then(data => {
         this.detail = data;
         console.log("Actualizando", this.detail);
-
+        
       })
   }
 
   closeModal() {
     this.navCtrl.pop()
+  }
+
+  crear(){
+    this.test.generalPost(`/actividad`, {
+      fecha_inicio:moment(this.fechaInicio).add(5, 'h').format(),
+      fecha_fin:moment(this.fechaFin).add(5, 'h').format(),
+      asunto: this.asunto
+    })
+      .then(data =>{
+        this.resultados = data;
+        console.log("Resultados Post", this.resultados);
+        this.closeModal();
+      })
   }
 
   // YYYY-MM-DD T HH:mm:ss.0007

@@ -11,7 +11,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class UsuarioPage {
 
-  AboutPage;
+  calendarPage = "calendar";
   ciudadPage = "ciudad"
   departamentoPage = "departamento"
 
@@ -37,7 +37,7 @@ export class UsuarioPage {
       break;
 
       case "about":
-      this.navCtrl.push(AboutPage)
+      this.navCtrl.push("calendar")
       break;
     
       default:
