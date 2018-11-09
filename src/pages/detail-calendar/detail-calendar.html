@@ -9,26 +9,52 @@
     </ion-navbar>
 </ion-header>
 <ion-content padding>
-    <ion-grid>
-        <ion-row>
-            <ion-col col-12>
-                <ion-item style="background-color: lightgrey;">
-                    <span>{{details.title}}</span>
-                </ion-item>
-            </ion-col>
-        </ion-row>
-        <ion-row>
-            <ion-col col-12 style="height: 4em;">
-            </ion-col>
-        </ion-row>
-        <ion-row>
+    <ion-grid *ngIf="resultados.id">
+        <form #actualizarActividad="ngForm" (ngSubmit)="actualizar(resultados.id)">
+            <ion-row>
                 <ion-col col-12>
-                    <p-calendar [(ngModel)]="fechaInicio" required></p-calendar> --Incio
+                    <ion-item style="background-color: lightgrey;">
+                        <span>{{resultados.asunto}}</span>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col col-12 style="height: 4em;">
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col col-12>
+                    <p-calendar [(ngModel)]="fechaInicio" name="Fecha Inicial" required></p-calendar> --Incio
                 </ion-col>
                 <ion-col col-12> -
-                    <p-calendar [(ngModel)]="fechaFin" required></p-calendar>
+                    <p-calendar [(ngModel)]="fechaFin" name="Fecha Final" placeholder="Fecha Final"></p-calendar>
                 </ion-col>
-                <button ion-button style="margin-top: .5em;">Actualizar</button>
-        </ion-row>
+                <button ion-button type="submit" [disabled]="!actualizarActividad.form.valid" style="margin-top: .5em;">Actualizar</button>
+            </ion-row>
+        </form>
     </ion-grid>
+    <ion-grid *ngIf="!resultados.id">
+            <form #actualizarActividad="ngForm" (ngSubmit)="actualizar(resultados.id)">
+                <ion-row>
+                    <ion-col col-12>
+                        <ion-item style="background-color: lightgrey;">
+                            <span>prueba.asunto</span>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col col-12 style="height: 4em;">
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col col-12>
+                        <p-calendar [(ngModel)]="fechaInicio" name="Fecha Inicial" required></p-calendar> --Incio
+                    </ion-col>
+                    <ion-col col-12> -
+                        <p-calendar [(ngModel)]="fechaFin" name="Fecha Final" placeholder="Fecha Final"></p-calendar>
+                    </ion-col>
+                    <button ion-button type="submit" [disabled]="!actualizarActividad.form.valid" style="margin-top: .5em;">Actualizar</button>
+                </ion-row>
+            </form>
+        </ion-grid>
 </ion-content>

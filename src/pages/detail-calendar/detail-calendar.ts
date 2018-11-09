@@ -54,10 +54,10 @@ export class DetailCalendarPage {
   }
 
   actualizar(id) {
-    this.test.generalPut(`/actividad/${id}`, this.details)
+    this.test.generalPut(`/actividad/${id}`, {fechaInicio:this.fechaInicio,fechaFin:moment(this.fechaFin).add(5, 'h').format()})
       .then(data => {
-        this.resultados = data;
-        console.log("Actualizando", this.resultados);
+        this.detail = data;
+        console.log("Actualizando", this.detail);
 
       })
   }
