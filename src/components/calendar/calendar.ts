@@ -58,13 +58,8 @@ export class CalendarComponent {
     }
     crear(){
         console.log("creando");
-        
-        // this.test.generalPost(`/actividad`).then(events => {this.events = events;});
-            // .then( data =>{
-            //     this.detail= data;
-            //     console.log("Datos de creación", data);
-                
-            // })
+        let modal=this.modal.create("detail-calendar")
+        modal.present();
     }
     encontrar(id){
         let modal=this.modal.create("detail-calendar", {data:id})

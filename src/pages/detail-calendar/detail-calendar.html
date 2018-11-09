@@ -1,48 +1,34 @@
 <ion-header>
-
-  <ion-navbar>
-    <ion-col style="display: flex;justify-content: flex-end;">
-      <ion-title>Detalle</ion-title>
-      <button ion-button type="button" (click)="closeModal()" color="light">
-          <ion-icon name="close-circle"></ion-icon>
-      </button>
-  </ion-col>
-</ion-navbar>
-
+    <ion-navbar>
+        <ion-col style="display: flex;justify-content: flex-end;">
+            <ion-title>Detalle</ion-title>
+            <button ion-button type="button" (click)="closeModal()" color="light">
+                <ion-icon name="close-circle"></ion-icon>
+            </button>
+        </ion-col>
+    </ion-navbar>
 </ion-header>
-
-
 <ion-content padding>
-  <ion-row>
-      <ion-col col-12>
-          <ion-item style="background-color: lightgrey;">
-              <span>{{details.title}}</span>
-          </ion-item>
-      </ion-col>
-  </ion-row>
-  <ion-row>
-      <ion-col col-12 style="height: 4em;">
-
-      </ion-col>
-  </ion-row>
-  <ion-row >
-      <ion-col col-12 style="display: flex;justify-content: center;align-items: center;">
-          <form #actualizarActividad="ngForm" (ngSubmit)="actualizar(details.id)" style="width: 50%;text-align: center;">
-              <ion-item col-12>
-                  <ion-input [(ngModel)]="details.start" name="Fecha Inicial" required></ion-input>
-              </ion-item>
-              <ion-item col-12>
-                  <ion-input [(ngModel)]="details.end" name="Fecha Final" required></ion-input>
-              </ion-item>
-              <ion-item col-12>
-                      <ion-select [(ngModel)]="details.id_ciudad" name="id" required>
-                          <ion-option value="" disabled selected>Ciudad</ion-option>
-                          <ion-option *ngFor="let ciudad of ciudades" [value]="ciudad.id">{{ciudad.nombre}}</ion-option>
-                      </ion-select>
-              </ion-item>
-              <button ion-button type="submit" [disabled]="!actualizarActividad.form.valid" style="margin-top: .5em;">Actualizar</button>
-          </form> 
-      </ion-col>
-  </ion-row> 
+    <ion-grid>
+        <ion-row>
+            <ion-col col-12>
+                <ion-item style="background-color: lightgrey;">
+                    <span>{{details.title}}</span>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col col-12 style="height: 4em;">
+            </ion-col>
+        </ion-row>
+        <ion-row>
+                <ion-col col-12>
+                    <p-calendar [(ngModel)]="fechaInicio" required></p-calendar> --Incio
+                </ion-col>
+                <ion-col col-12> -
+                    <p-calendar [(ngModel)]="fechaFin" required></p-calendar>
+                </ion-col>
+                <button ion-button style="margin-top: .5em;">Actualizar</button>
+        </ion-row>
+    </ion-grid>
 </ion-content>
-

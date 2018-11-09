@@ -13,24 +13,30 @@ import { LoginComponent } from './login/login';
 import { CalendarComponent } from './calendar/calendar';
 
 @NgModule({
-    declarations: [DepartamentosComponent,
+    declarations: [
+        DepartamentosComponent,
         CiudadesComponent,
         UsuariosComponent,
         NavbarComponent,
         FooterComponent,
         SearchPipe,
         SortPipe,
-    LoginComponent,
-    CalendarComponent],
-    imports: [IonicModule,FormsModule,FullCalendarModule],
-    exports: [DepartamentosComponent,
+        LoginComponent,
+        CalendarComponent],
+    imports: [
+        IonicModule,
+        FormsModule,
+        FullCalendarModule
+    ],
+    exports: [
+        DepartamentosComponent,
         CiudadesComponent,
         UsuariosComponent,
         NavbarComponent,
         FooterComponent,
         SearchPipe,
         SortPipe,
-    LoginComponent,
-    CalendarComponent]
+        LoginComponent,
+        CalendarComponent]
 })
 export class ComponentsModule { }
