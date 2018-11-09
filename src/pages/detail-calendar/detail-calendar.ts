@@ -28,13 +28,14 @@ export class DetailCalendarPage {
   ionViewDidLoad() {
     if (this.navParams.get('data')) {
       console.log("Datos", this.navParams.get('data'));
-
+      //parametros obtenidos de entidad padre por medio del modal
       this.detail = this.navParams.get('data')
+      //funcion para encontrar el objeto al que pertenece el id
       this.detalle(this.detail);
     }
     else{
-      console.log("Datos", this.navParams.get('event'));
       this.fechaInicial = this.navParams.get('event')
+      //Cuando el objeto viene sin id se setea por defecto la fecha seleccionada en el calendario
     }
   }
 
@@ -45,6 +46,7 @@ export class DetailCalendarPage {
         this.title = this.resultados.asunto;
         // this.fechaFin = new Date(moment(this.resultados.fecha_fin).toDate())
         this.fechaInicio = new Date(moment(this.resultados.fecha_inicio).toDate())
+        //parseando la fecha con el formato requerido por el input calendar
         if(this.resultados.fecha_fin != null){
           this.fechaFin = new Date(moment(this.resultados.fecha_fin).toDate())
         }else{
@@ -83,7 +85,4 @@ export class DetailCalendarPage {
         this.closeModal();
       })
   }
-
-  // YYYY-MM-DD T HH:mm:ss.0007
-
 }

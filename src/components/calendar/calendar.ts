@@ -27,10 +27,7 @@ export class CalendarComponent {
         allDay: true,
         //Eventos emitidos por el calendar
         dateClick:(event, jsEvent, view) =>{
-            // console.log(event.date);
-            
             if(!event.event){
-                // console.log(event.date);
                 this.crear(event.date);
             }
             else{
@@ -47,9 +44,11 @@ export class CalendarComponent {
             this.actualizar(event.event.id,event.event)
             //pasando el id del evento y el evento completo al arrastrarlo en el calendario para que se ejecute la función actualizar
         },
+        //encabezado del calendario
         header: {
-            center: 'mes,semana,dia', // buttons for switching between views
+            center: 'mes,semana,dia', // botones para cambiar la vista
         },
+        //funcionalidad de los botones de vista en calendario
         views: {
             semana: {
                 type: 'agenda',
@@ -84,6 +83,7 @@ export class CalendarComponent {
     crear(date){
         console.log("creando");
         let modal=this.modal.create("detail-calendar",{event:date})
+        //modal.onDismiss ejecucion de código despues de cerrar el modal
         modal.onDidDismiss(data => {
             location.reload()
             console.log(data);
