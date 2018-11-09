@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { TestProvider } from '../../providers/test/test';
 import * as moment from 'moment'
-import { FormGroup, FormControl } from '@angular/forms';
 
 
 @IonicPage({
@@ -17,9 +16,8 @@ export class DetailCalendarPage {
   details: any = {}
   detail: any = {}
   resultados: any = {}
-  public fecha_inicio: string
-  public fecha_fin: string
-  public fechaInicio: Date
+  public fechaInicial: Date;
+  public fechaInicio: Date;
   public fechaFin: Date; 
   public asunto:string;
   constructor(
@@ -36,7 +34,7 @@ export class DetailCalendarPage {
     }
     else{
       console.log("Datos", this.navParams.get('event'));
-      this.fechaInicio = this.navParams.get('event')
+      this.fechaInicial = this.navParams.get('event')
     }
   }
 
@@ -75,7 +73,7 @@ export class DetailCalendarPage {
 
   crear(){
     this.test.generalPost(`/actividad`, {
-      fecha_inicio:moment(this.fechaInicio).add(5, 'h').format(),
+      fecha_inicio:moment(this.fechaInicial).add(5, 'h').format(),
       fecha_fin:moment(this.fechaFin).add(5, 'h').format(),
       asunto: this.asunto
     })
