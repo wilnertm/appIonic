@@ -21,15 +21,12 @@ options: any={
     color:true,
     textColor:true,
     allDay: true,
-    // eventDrop:( event , delta , revertFunc , jsEvent , ui , view ) => {
-
-    // },
     eventClick:(event, jsEvent, view)=>{
-        console.log("Detalle",event.event);
+        console.log("Detalle",event.event.id);
         // this.findById(detail.event.id,detail.event);
-        this.encontrar(event.event)
+        this.encontrar(event.event.id)
     },
-    eventDrop:(event, jsEvent, ui, end)=>{
+    eventDrop:(event , delta , revertFunc , jsEvent , ui , view )=>{
         console.log("prueba",event.event)
         this.actualizar(event.event.id,event.event)
     }
@@ -65,8 +62,8 @@ crear(){
         // })
 }
 
-encontrar(event){
-    let modal=this.modal.create("detail-calendar", {data:event})
+encontrar(id){
+    let modal=this.modal.create("detail-calendar", {data:id})
     modal.present();
 }
 

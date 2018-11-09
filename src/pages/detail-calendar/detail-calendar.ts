@@ -13,6 +13,7 @@ import { TestProvider } from '../../providers/test/test';
 export class DetailCalendarPage {
 
   details:any={}
+  detail:any={}
   resultados:any = {}
 
   constructor(
@@ -25,11 +26,21 @@ export class DetailCalendarPage {
     if(this.navParams.get('data')){
       console.log("Datos",this.navParams.get('data'));
       
-      this.details=this.navParams.get('data')    
+      this.detail=this.navParams.get('data')  
+      this.detalle(this.detail);  
     }
     else{
       this.navCtrl.pop()
     }
+  }
+
+  detalle(id){
+    this.test.generalGet(`/actividad/${id}`, this.detail)
+    .then( data =>{
+    this.resultados= data;
+      console.log("Get Detalle", this.resultados);
+      
+    })
   }
 
   actualizar(id){
