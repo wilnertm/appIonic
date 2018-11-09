@@ -8,81 +8,62 @@ import { ModalController } from 'ionic-angular';
 })
 export class CalendarComponent {
 
-text: string;
-events:any []
-public detail:any ={}
-public objeto:any ={}
-options: any={
-    editable: true,
-    selectable:true, 
-    startEditable:true,
-    durationEditable:true,
-    resourceEditable:true,
-    color:true,
-    textColor:true,
-    allDay: true,
-    eventClick:(event, jsEvent, view)=>{
-        console.log("Detalle",event.event.id);
-        // this.findById(detail.event.id,detail.event);
-        this.encontrar(event.event.id)
-    },
-    eventDrop:(event , delta , revertFunc , jsEvent , ui , view )=>{
-        console.log("prueba",event.event)
-        this.actualizar(event.event.id,event.event)
+    //Declaración de variables
+    text: string;
+    events:any []
+    public detail:any ={}
+    public objeto:any ={}
+    resultados: any={}
+    // Configuración de las opciones del calendar
+    options: any={
+        editable: true,
+        selectable:true, 
+        startEditable:true,
+        durationEditable:true,
+        resourceEditable:true,
+        color:true,
+        textColor:true,
+        allDay: true,
+        //Eventos emitidos por el calendar
+        eventClick:(event, jsEvent, view)=>{
+            this.encontrar(event.event.id)
+            //Pasando el id del evento para el modal del detalle para que se ejecute la función encontrar
+        },
+        eventDrop:(event , delta , revertFunc , jsEvent , ui , view )=>{
+            console.log("prueba",event.event)
+            this.actualizar(event.event.id,event.event)
+            //pasando el id del evento y el evento completo al arrastrarlo en el calendario para que se ejecute la función actualizar
+        }
     }
-}
-selectable: any={}
-selected: any ={}
-resultados: any={}
-
-constructor(
-    private test:TestProvider,
-    private modal:ModalController,
-) {}
-
-ngOnInit() {
-    
-    this.test.generalGet(`/actividad`)
-    .then(data=>{
-        this.events=data;
-    })
-}
-
-
-
-
-
-
-crear(){
-    this.test.generalPost(`/actividad`).then(events => {this.events = events;});
-        // .then( data =>{
-        //     this.detail= data;
-        //     console.log("Datos de creación", data);
-            
-        // })
-}
-
-encontrar(id){
-    let modal=this.modal.create("detail-calendar", {data:id})
-    modal.present();
-}
-
-actualizar(id,event){
-    this.test.generalPut(`/actividad/${id}`, {fechaInicio:event.start,fechaFin:event.end})
-        .then( data =>{
-            this.resultados= data;
-            console.log("Actualizando", this.resultados);
-            
+    constructor(
+        private test:TestProvider,
+        private modal:ModalController,
+    ) {}
+    ngOnInit() {
+        
+        this.test.generalGet(`/actividad`)
+        .then(data=>{
+            this.events=data;
+            //Igualando los datos del get a los eventos del calendario
         })
-}
-
-findById(id,event){
-    this.test.generalGet(`/actividad/${id}`, id)
-        .then( data =>{
-            this.objeto = data;
-            console.log("Selected", this.objeto);
-            
-        })
-}
-
+    }
+    crear(){
+        this.test.generalPost(`/actividad`).then(events => {this.events = events;});
+            // .then( data =>{
+            //     this.detail= data;
+            //     console.log("Datos de creación", data);
+                
+            // })
+    }
+    encontrar(id){
+        let modal=this.modal.create("detail-calendar", {data:id})
+        modal.present();
+    }
+    actualizar(id,event){
+        this.test.generalPut(`/actividad/${id}`, {fechaInicio:event.start,fechaFin:event.end})
+            .then( data =>{
+                this.resultados= data;
+                console.log("Actualizando", this.resultados);              
+            })
+    }
 }
