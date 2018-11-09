@@ -25,6 +25,15 @@ export class CalendarComponent {
         textColor:true,
         allDay: true,
         //Eventos emitidos por el calendar
+        dateClick:(event, jsEvent, view) =>{
+            // alert('Date: ' + info.dateStr);
+            if(!event.event){
+                this.crear();
+            }else{
+                this.encontrar(event.event.id)
+                //Pasando el id del evento para el modal del detalle para que se ejecute la función encontrar
+            }
+        },
         eventClick:(event, jsEvent, view)=>{
             this.encontrar(event.event.id)
             //Pasando el id del evento para el modal del detalle para que se ejecute la función encontrar
@@ -48,7 +57,9 @@ export class CalendarComponent {
         })
     }
     crear(){
-        this.test.generalPost(`/actividad`).then(events => {this.events = events;});
+        console.log("creando");
+        
+        // this.test.generalPost(`/actividad`).then(events => {this.events = events;});
             // .then( data =>{
             //     this.detail= data;
             //     console.log("Datos de creación", data);
