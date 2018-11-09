@@ -44,7 +44,6 @@ export class DetailCalendarPage {
       .then(data => {
         this.resultados = data;
         this.title = this.resultados.asunto;
-        // this.fechaFin = new Date(moment(this.resultados.fecha_fin).toDate())
         this.fechaInicio = new Date(moment(this.resultados.fecha_inicio).toDate())
         //parseando la fecha con el formato requerido por el input calendar
         if(this.resultados.fecha_fin != null){
