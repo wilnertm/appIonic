@@ -56,6 +56,12 @@
                         <p-calendar [(ngModel)]="fechaFin" name="Fecha Final" placeholder="Fecha Final"></p-calendar>
                     </ion-col>
                 </ion-col>
+                <ion-col>
+                    <ion-select [(ngModel)]="tipoActividad" name="id" required>
+                        <ion-option value="" disabled selected>Tipo de Actividad</ion-option>
+                        <ion-option *ngFor="let opcion of opciones" [value]="opcion.id">{{opcion.descripcion}}</ion-option>
+                    </ion-select>
+                </ion-col>
                 <ion-col col-12 style="text-align: center;">
                     <button ion-button type="submit" [disabled]="!crearActividad.form.valid" style="margin-top: .5em;">Crear</button>
                 </ion-col>

@@ -77,6 +77,8 @@ export class CalendarComponent {
         this.test.generalGet(`/actividad`)
         .then(data=>{
             this.events=data;
+            console.log("Actividades", this.events);
+            
             //Igualando los datos del get a los eventos del calendario
         })
     }

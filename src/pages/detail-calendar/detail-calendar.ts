@@ -16,8 +16,11 @@ export class DetailCalendarPage {
   details: any = {}
   detail: any = {}
   resultados: any = {}
+  actividad: any = {}
+  public opciones: any []=[];
   public fechaInicial: Date;
   public fechaInicio: Date;
+  public tipoActividad:any;
   public fechaFin: Date; 
   public asunto:string;
   constructor(
@@ -37,6 +40,16 @@ export class DetailCalendarPage {
       this.fechaInicial = this.navParams.get('event')
       //Cuando el objeto viene sin id se setea por defecto la fecha seleccionada en el calendario
     }
+  }
+
+  ngOnInit(): void {
+    this.test.generalGet(`/opcion`)
+      .then( data =>{
+        this.opciones = data;
+        console.log("Opciones", this.opciones);
+        
+      })
+    
   }
 
   detalle(id) {
@@ -59,7 +72,7 @@ export class DetailCalendarPage {
     this.test.generalPut(`/actividad/${id}`, {
       fechaInicio:this.fechaInicio,
       fechaFin:moment(this.fechaFin).add(5, 'h').format(),
-      asunto: this.asunto
+      asunto: this.resultados.asunto
     })
       .then(data => {
         this.detail = data;
@@ -73,15 +86,17 @@ export class DetailCalendarPage {
   }
 
   crear(){
-    this.test.generalPost(`/actividad`, {
+    this.test.generalPost(`/actividad`,{
       fecha_inicio:moment(this.fechaInicial).add(5, 'h').format(),
       fecha_fin:moment(this.fechaFin).add(5, 'h').format(),
-      asunto: this.asunto
-    })
+      asunto: this.asunto,
+      tipo_actividad: this.tipoActividad
+  })
       .then(data =>{
         this.resultados = data;
         console.log("Resultados Post", this.resultados);
         this.closeModal();
       })
+      
   }
 }
