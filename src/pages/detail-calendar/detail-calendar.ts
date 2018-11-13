@@ -23,6 +23,12 @@ export class DetailCalendarPage {
   public tipoActividad:any;
   public fechaFin: Date; 
   public asunto:string;
+  public estado: any;
+  public prioridades: any;
+  public prioridad:any []=[];
+  public tipos: any;
+  public tipo:any []=[];
+  public estados:any []=[];
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -45,11 +51,31 @@ export class DetailCalendarPage {
   ngOnInit(): void {
     this.test.generalGet(`/opcion`)
       .then( data =>{
-        this.opciones = data;
-        console.log("Opciones", this.opciones);
-        
+        this.resultados = data;
+        console.log("Resultados", this.resultados);
+        this.categorizar();
       })
     
+  }
+
+  categorizar(){       
+    for(let i = 0; i < this.resultados.length;i++){
+      if(this.resultados[i].categoria == 3){
+        this.prioridad.push(this.resultados[i]);
+      }
+      if(this.resultados[i].categoria == 1){
+        this.opciones.push(this.resultados[i]);
+      }
+      if(this.resultados[i].categoria == 2){
+        this.tipo.push(this.resultados[i]);
+      }
+      if(this.resultados[i].categoria == 4){
+        this.estados.push(this.resultados[i]);
+      }
+    }
+    console.log("prioridad:",this.prioridad);
+    console.log("tipo actividad:",this.opciones);
+    console.log("tipo:",this.tipo);
   }
 
   detalle(id) {
@@ -90,7 +116,10 @@ export class DetailCalendarPage {
       fecha_inicio:moment(this.fechaInicial).add(5, 'h').format(),
       fecha_fin:moment(this.fechaFin).add(5, 'h').format(),
       asunto: this.asunto,
-      tipo_actividad: this.tipoActividad
+      tipo_actividad: this.tipoActividad,
+      tipo: this.tipos,
+      prioridad: this.prioridades,
+      estado_actividad: this.estado
   })
       .then(data =>{
         this.resultados = data;

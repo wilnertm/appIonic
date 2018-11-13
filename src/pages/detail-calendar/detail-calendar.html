@@ -45,27 +45,45 @@
                 </ion-item>
             </ion-col>
         </ion-row>
-        <form #crearActividad="ngForm" (ngSubmit)="crear()">
-            <ion-row style="display: flex;justify-content: center;">
-                <ion-col col-12 col-md-5>
-                    <ion-input [(ngModel)]="asunto" name="Asunto" placeholder="Asunto" style="margin-top: .5em;" required></ion-input>
-                    <ion-col style="margin-top: .5em;">
+        <ion-row style="display: flex;justify-content: center;">
+            <ion-col col-12 style="display: flex;justify-content: center;align-items: center;">
+                <form #crearActividad="ngForm" (ngSubmit)="crear()" style="width: 50%;">
+                    <ion-item>
+                        <ion-input [(ngModel)]="asunto" name="Asunto" placeholder="Asunto" style="margin-top: .5em;" required></ion-input>
+                    </ion-item>
                         <p-calendar [(ngModel)]="fechaInicial" name="Fecha Inicial" placeholder="Fecha Inicial" required></p-calendar>
-                    </ion-col>
-                    <ion-col style="margin-top: .5em;">
                         <p-calendar [(ngModel)]="fechaFin" name="Fecha Final" placeholder="Fecha Final"></p-calendar>
-                    </ion-col>
-                </ion-col>
-                <ion-col>
-                    <ion-select [(ngModel)]="tipoActividad" name="id" required>
-                        <ion-option value="" disabled selected>Tipo de Actividad</ion-option>
-                        <ion-option *ngFor="let opcion of opciones" [value]="opcion.id">{{opcion.descripcion}}</ion-option>
-                    </ion-select>
-                </ion-col>
-                <ion-col col-12 style="text-align: center;">
-                    <button ion-button type="submit" [disabled]="!crearActividad.form.valid" style="margin-top: .5em;">Crear</button>
-                </ion-col>
-            </ion-row>
-        </form>
+                    <ion-item>
+                        <ion-label>Tipo de Actividad</ion-label>
+                        <ion-select [(ngModel)]="tipoActividad" name="idActividad" required>
+                            <ion-option value="" disabled selected>Tipo de Actividad</ion-option>
+                            <ion-option *ngFor="let opcion of opciones" [value]="opcion.id">{{opcion.descripcion}}</ion-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Prioridad</ion-label>
+                        <ion-select [(ngModel)]="prioridades" name="idPrioridad" required>
+                            <ion-option value="" disabled selected>Prioridad</ion-option>
+                            <ion-option *ngFor="let priori of prioridad" [value]="priori.id">{{priori.descripcion}}</ion-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Tipo</ion-label>
+                        <ion-select [(ngModel)]="tipos" name="idTipo" required>
+                            <ion-option value="" disabled selected>Tipo</ion-option>
+                            <ion-option *ngFor="let tip of tipo" [value]="tip.id">{{tip.descripcion}}</ion-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-item *ngIf="tipoActividad == 3">
+                        <ion-label>Estado</ion-label>
+                        <ion-select [(ngModel)]="estado" name="idEstado" required>
+                            <ion-option value="" disabled selected>Estado Actividad</ion-option>
+                            <ion-option *ngFor="let estad of estados" [value]="estad.id">{{estad.descripcion}}</ion-option>
+                        </ion-select>
+                    </ion-item>    
+                    <button ion-button type="submit" [disabled]="!crearActividad.form.valid" style="margin-top: .5em;margin-left: 8em;">Crear</button>
+                </form>
+            </ion-col>
+        </ion-row>
     </ion-grid>
 </ion-content>
