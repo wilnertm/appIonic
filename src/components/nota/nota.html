@@ -1,4 +1,19 @@
-<!-- Generated template for the NotaComponent component -->
-<div>
-  {{text}}
-</div>
+<button *ngIf="!agregarNota" ion-button type="button" (click)="agregarNota = true" color="default" icon-start>
+    <ion-icon name="add-circle"></ion-icon> Nota
+</button>
+<ion-col *ngIf="agregarNota">
+    <ion-item>
+        <ion-input [(ngModel)]="notas" name="Nota" placeholder="Descripcion"></ion-input>
+    </ion-item>
+    <button ion-button type="button" (click)="crearNota()">Crear Nota</button>
+    <button ion-button type="button" (click)="agregarNota = false" color="light">
+        <ion-icon name="close-circle"></ion-icon>
+    </button>
+</ion-col>
+<ion-col>
+    <ion-list>
+        <div class="row" *ngFor="let item of resultadosGet">
+            <ion-item>{{item.descripcion}}</ion-item>
+        </div>
+    </ion-list>
+</ion-col>

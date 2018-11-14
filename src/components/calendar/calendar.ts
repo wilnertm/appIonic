@@ -95,8 +95,10 @@ export class CalendarComponent {
     encontrar(id){
         let modal=this.modal.create("detail-calendar", {data:id})
         modal.onDidDismiss(data => {
-            location.reload()
-            console.log(data);
+            this.ngOnInit();
+            // this.events.push(data);
+            // location.reload()
+            console.log("Modal",data);
         });
         modal.present();
     }

@@ -11,11 +11,16 @@
 <ion-content padding>
     <ion-grid *ngIf="resultados.id">
         <ion-row>
-            <ion-col col-12>
-                <ion-item style="background-color: lightgrey;">
-                    <span></span>
-                </ion-item>
-            </ion-col>
+            <ion-item>
+                <ion-label>Tipo De Actividad: {{resultados.opciones?.descripcion}}</ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>Tipo De Evento: {{resultados.tipoEvento?.descripcion}}</ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>Prioridad: {{resultados.opcionPrioridad?.descripcion}}</ion-label>
+            </ion-item>
+            <nota [id]="resultados.id" [modulo]="nombreModulo"></nota>
         </ion-row>
         <ion-row style="display: flex;justify-content: center;">
             <ion-col col-12 style="display: flex;justify-content: center;align-items: center;">
@@ -24,28 +29,16 @@
                         <ion-col col-12 style="height: 4em;">
                         </ion-col>
                     </ion-row>
-                    <ion-row>
+                    <ion-row style="display: grid;">
                         <ion-item>
                             <ion-label>Asunto: </ion-label>
                             <ion-input [(ngModel)]="resultados.asunto" name="Asunto" placeholder="Asunto"></ion-input>
                         </ion-item>
-                        <ion-item>
-                            <ion-label>Tipo De Actividad: </ion-label>
-                            <ion-input [(ngModel)]="resultados.opciones.descripcion" name="tipoActividad" placeholder="Asunto"></ion-input>
-                        </ion-item>
-                        <ion-item>
-                            <ion-label>Tipo De Evento: </ion-label>
-                            <ion-input [(ngModel)]="resultados.tipoEvento.descripcion" name="Tipo" placeholder="Tipo"></ion-input>
-                        </ion-item>
-                        <ion-item>
-                            <ion-label>Prioridad: </ion-label>
-                            <ion-input [(ngModel)]="resultados.opcionPrioridad.descripcion" name="Prioridad" placeholder="Prioridad"></ion-input>
-                        </ion-item>
-                        <ion-col col-12>
+                        <ion-col col-6>
                             <ion-label>Fecha Inicial : </ion-label>
                             <p-calendar [(ngModel)]="fechaInicio" name="Fecha Inicial" required></p-calendar>
                         </ion-col>
-                        <ion-col col-12>
+                        <ion-col col-6>
                             <ion-label>Fecha Final : </ion-label>
                             <p-calendar [(ngModel)]="fechaFin" name="Fecha Final" placeholder="Fecha Final"></p-calendar>
                         </ion-col>
@@ -68,10 +61,11 @@
             <ion-col col-12 style="display: flex;justify-content: center;align-items: center;">
                 <form #crearActividad="ngForm" (ngSubmit)="crear()" style="width: 50%;">
                     <ion-item>
-                        <ion-input [(ngModel)]="asunto" name="Asunto" placeholder="Asunto" style="margin-top: .5em;" required></ion-input>
+                        <ion-input [(ngModel)]="asunto" name="Asunto" placeholder="Asunto" style="margin-top: .5em;"
+                            required></ion-input>
                     </ion-item>
-                        <p-calendar [(ngModel)]="fechaInicial" name="Fecha Inicial" placeholder="Fecha Inicial" required></p-calendar>
-                        <p-calendar [(ngModel)]="fechaFin" name="Fecha Final" placeholder="Fecha Final"></p-calendar>
+                    <p-calendar [(ngModel)]="fechaInicial" name="Fecha Inicial" placeholder="Fecha Inicial" required></p-calendar>
+                    <p-calendar [(ngModel)]="fechaFin" name="Fecha Final" placeholder="Fecha Final"></p-calendar>
                     <ion-item>
                         <ion-label>Tipo de Actividad</ion-label>
                         <ion-select [(ngModel)]="tipoActividad" name="idActividad" required>
@@ -93,13 +87,13 @@
                             <ion-option *ngFor="let tip of tipo" [value]="tip.id">{{tip.descripcion}}</ion-option>
                         </ion-select>
                     </ion-item>
-                    <ion-item *ngIf="tipoActividad == 3">
+                    <ion-select *ngIf="tipoActividad == 3">
                         <ion-label>Estado</ion-label>
                         <ion-select [(ngModel)]="estado" name="idEstado" required>
                             <ion-option value="" disabled selected>Estado Actividad</ion-option>
                             <ion-option *ngFor="let estad of estados" [value]="estad.id">{{estad.descripcion}}</ion-option>
                         </ion-select>
-                    </ion-item>    
+                    </ion-select>
                     <button ion-button type="submit" [disabled]="!crearActividad.form.valid" style="margin-top: .5em;margin-left: 8em;">Crear</button>
                 </form>
             </ion-col>

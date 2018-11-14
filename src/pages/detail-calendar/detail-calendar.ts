@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams} from 'ionic-angular';
 import { TestProvider } from '../../providers/test/test';
 import * as moment from 'moment'
+import { NgForm } from '@angular/forms';
 
 
 @IonicPage({
@@ -29,6 +30,9 @@ export class DetailCalendarPage {
   public tipos: any;
   public tipo:any []=[];
   public estados:any []=[];
+  public agrgarNota: false;
+  notas: any;
+  public nombreModulo = "actividades";
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
