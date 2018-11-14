@@ -11,6 +11,7 @@ import { SearchPipe } from '../pipes/search/search';
 import { SortPipe } from '../pipes/sort/sort';
 import { LoginComponent } from './login/login';
 import { CalendarComponent } from './calendar/calendar';
+import { NotaComponent } from './nota/nota';
 
 @NgModule({
     declarations: [
@@ -22,7 +23,8 @@ import { CalendarComponent } from './calendar/calendar';
         SearchPipe,
         SortPipe,
         LoginComponent,
-        CalendarComponent],
+        CalendarComponent,
+    NotaComponent],
     imports: [
         IonicModule,
         FormsModule,
@@ -37,6 +39,7 @@ import { CalendarComponent } from './calendar/calendar';
         SearchPipe,
         SortPipe,
         LoginComponent,
-        CalendarComponent]
+        CalendarComponent,
+    NotaComponent]
 })
 export class ComponentsModule { }

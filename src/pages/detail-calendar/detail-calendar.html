@@ -26,18 +26,27 @@
                     </ion-row>
                     <ion-row>
                         <ion-item>
+                            <ion-label>Asunto: </ion-label>
                             <ion-input [(ngModel)]="resultados.asunto" name="Asunto" placeholder="Asunto"></ion-input>
                         </ion-item>
                         <ion-item>
-                            <ion-input [(ngModel)]="resultados.tipo_actividad" name="tipoActividad" placeholder="Asunto"></ion-input>
+                            <ion-label>Tipo De Actividad: </ion-label>
+                            <ion-input [(ngModel)]="resultados.opciones.descripcion" name="tipoActividad" placeholder="Asunto"></ion-input>
                         </ion-item>
                         <ion-item>
-                            <ion-input [(ngModel)]="resultados.tipo" name="Tipo" placeholder="Asunto"></ion-input>
+                            <ion-label>Tipo De Evento: </ion-label>
+                            <ion-input [(ngModel)]="resultados.tipoEvento.descripcion" name="Tipo" placeholder="Tipo"></ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label>Prioridad: </ion-label>
+                            <ion-input [(ngModel)]="resultados.opcionPrioridad.descripcion" name="Prioridad" placeholder="Prioridad"></ion-input>
                         </ion-item>
                         <ion-col col-12>
+                            <ion-label>Fecha Inicial : </ion-label>
                             <p-calendar [(ngModel)]="fechaInicio" name="Fecha Inicial" required></p-calendar>
                         </ion-col>
                         <ion-col col-12>
+                            <ion-label>Fecha Final : </ion-label>
                             <p-calendar [(ngModel)]="fechaFin" name="Fecha Final" placeholder="Fecha Final"></p-calendar>
                         </ion-col>
                         <button ion-button type="submit" [disabled]="!actualizarActividad.form.valid" style="margin-top: .5em;">Actualizar</button>
