@@ -15,6 +15,8 @@ detail: any = {};
 details: any={}
 public form:boolean;
 public selected:any={}
+text: string;
+results: string[];
 
   constructor(
     private test: TestProvider,
@@ -42,10 +44,6 @@ public selected:any={}
     this.text = event.id;
     
   }
-
-  text: string;
-  results: string[];
-
 
   search(event) {
       this.test.generalPost('/findusuario', {

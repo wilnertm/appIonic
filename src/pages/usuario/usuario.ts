@@ -14,6 +14,7 @@ export class UsuarioPage {
   calendarPage = "calendar";
   ciudadPage = "ciudad"
   departamentoPage = "departamento"
+  clientePage = "cliente"
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
@@ -38,6 +39,10 @@ export class UsuarioPage {
 
       case "about":
       this.navCtrl.push("calendar")
+      break;
+
+      case "cliente":
+      this.navCtrl.push("cliente")
       break;
     
       default:

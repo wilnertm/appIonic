@@ -1,0 +1,97 @@
+<ion-header>
+
+    <ion-navbar>
+      <ion-title>Cliente</ion-title>
+    </ion-navbar>
+  
+  </ion-header>
+<ion-content style="align-items:center;">
+    <ion-grid>
+        <ion-row col-12 style="justify-content:center;">
+            <ion-col col-12 col-md-9 style="display: flex;justify-content: center">
+                <ion-list style="width: 100%;">
+                    <div class="row header">
+                        <div class="col">Detalle</div>
+                        <div class="col">Nombres</div>
+                        <div class="col">Emails</div>
+                        <div class="col" >Telefonos</div>
+                        <div class="col" >Ciudad</div>
+                    </div>
+                    <div class="row" *ngFor="let usuario of resultados">
+                        <div class="col"><a (click)="encontrar(selected=usuario)" style="cursor:pointer;"><ion-icon name="eye"></ion-icon></a></div>
+                        <div class="col">{{usuario.nombre}}</div>
+                        <div class="col"  *ngFor="let email of usuario.correosCliente">{{email.email}}</div>
+                        <div class="col"  *ngFor="let telefono of usuario.telefonosCliente">{{telefono.numero}}</div>
+                        <div class="col">{{usuario.ciudadCliente?.nombre}}</div>
+                        <div class="col">{{usuario.ciudades?.departamentos?.nombre}}</div>
+                    </div>
+                </ion-list>
+            </ion-col>
+            <ion-col col-12 col-md-3 style="display: flex;justify-content: center;align-items: center">
+                    <button ion-button *ngIf="!form" (click)="form=true"  >Crear Cliente</button>
+                    <div>
+                        <p-autoComplete [(ngModel)]="text"  [suggestions]="results" field="nombres" (completeMethod)="search($event)" (onSelect)="select($event)">
+
+                        </p-autoComplete>
+                    </div>
+                    <div *ngIf="form">
+                        <form (ngSubmit)="crear()" #crearUsuario="ngForm" novalidate>
+                            <div>
+                                <ion-item>
+                                    <ion-label color="primary">Nombres</ion-label>
+                                    <ion-input  [(ngModel)]="detail.nombres" name="nombre" required id="nombre" 
+                                        #nombre="ngModel" #spy></ion-input>
+                                        <!-- <br>   TODO: remove this: {{spy.nombre}} -->
+                                    <ion-col [hidden]="nombre.valid || nombre.pristine">
+                                        Nombre Requerido
+                                    </ion-col>
+                                </ion-item>
+                                <ion-item>
+                                        <ion-label color="primary">Apellidos</ion-label>
+                                        <ion-input  [(ngModel)]="detail.apellidos" name="apellidos" required id="apellidos" 
+                                        #apellidos="ngModel" #spy></ion-input>
+                                        <!-- <br>   TODO: remove this: {{spy.className}} -->
+                                        <ion-col hideWhen="apellidos.valid || apellidos.pristine">
+                                            Nombre Requerido
+                                        </ion-col>  
+                                    </ion-item>  
+                                <ion-item>
+                                        <ion-label color="primary">Email</ion-label>
+                                        <ion-input type="email" [(ngModel)]="detail.email" (blur)="validarEmail(detail.email)" name="email" required id="email" 
+                                            #email="ngModel" #spy></ion-input>
+                                            <!-- <br>   TODO: remove this: {{spy.nombre}} -->
+                                        <ion-col [hidden]="email.valid || email.pristine">
+                                            Nombre Requerido
+                                        </ion-col>
+                                </ion-item>
+                                
+                                <ion-item>
+                                    <ion-label>Ciudad</ion-label>
+                                    <ion-select [(ngModel)]="detail.id_ciudad" name="id" required>
+                                        <ion-option value="" disabled selected>Ciudad</ion-option>
+                                        <ion-option *ngFor="let ciudad of ciudades" [value]="ciudad.id">{{ciudad.nombre}}</ion-option>
+                                    </ion-select>
+                                </ion-item>
+
+                                <ion-item>
+                                        <ion-label color="primary">Contraseña</ion-label>
+                                        <ion-input type="password" [(ngModel)]="detail.password" name="password" required id="password" 
+                                            #password="ngModel" #spy></ion-input>
+                                            <!-- <br>   TODO: remove this: {{spy.nombre}} -->
+                                        <ion-col [hidden]="password.valid || password.pristine">
+                                            Nombre Requerido
+                                        </ion-col>
+                                </ion-item>
+                            </div>
+                            <button ion-button type="submit" [disabled]="!crearUsuario.form.valid">
+                                Crear
+                            </button>
+                            <button ion-button type="button"  *ngIf="form" (click)="form=false" color="light">
+                                <ion-icon name="close-circle"></ion-icon>
+                            </button>
+                        </form>
+                    </div>
+                </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
