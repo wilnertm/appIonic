@@ -29,6 +29,11 @@
             </ion-col>
             <ion-col col-12 col-md-3 style="display: flex;justify-content: center;align-items: center">
                     <button ion-button *ngIf="!form" (click)="form=true"  >Crear Usuario</button>
+                    <div>
+                        <p-autoComplete [(ngModel)]="text"  [suggestions]="results" field="nombres" (completeMethod)="search($event)" (onSelect)="select($event)">
+
+                        </p-autoComplete>
+                    </div>
                     <div *ngIf="form">
                         <form (ngSubmit)="crear()" #crearUsuario="ngForm" novalidate>
                             <div>

@@ -1,5 +1,5 @@
-import { ModalController } from 'ionic-angular';
-import { Component, Input } from '@angular/core';
+import { ModalController, ToastController } from 'ionic-angular';
+import { Component } from '@angular/core';
 import { TestProvider } from '../../providers/test/test';
 import { NgForm } from '@angular/forms';
 
@@ -11,14 +11,15 @@ export class UsuariosComponent {
 departamentos:any[]=[]
 usuarios: any[]=[]
 ciudades:any[]=[]
-detail: any={}
+detail: any = {};
 details: any={}
 public form:boolean;
 public selected:any={}
 
   constructor(
     private test: TestProvider,
-    private modal: ModalController
+    private modal: ModalController,
+    private toastCtrl: ToastController,
   ) {}
 
   ngOnInit(): void {
@@ -36,6 +37,45 @@ public selected:any={}
         
       })
   }
+  select(event){
+    console.log("Seleccionado",event);
+    this.text = event.id;
+    
+  }
+
+  text: string;
+  results: string[];
+
+
+  search(event) {
+      this.test.generalPost('/findusuario', {
+        nombres:this.text})
+      .then(data => {
+          this.results = data;
+          console.log("Autocomplete",this.results);
+          // this.results= this.detail.nombres;
+      });
+  }
+
+  presentToast() {
+    let toast = this.toastCtrl.create({
+      message: 'Usuario Creado Exitosamente',
+      duration: 3000,
+      position: 'top'
+    });
+    toast.present();
+
+  }
+
+  eliminatedToast(){
+    let toasto = this.toastCtrl.create({
+      message: 'El usuario fue eliminado',
+      duration: 3000,
+      position: 'top'
+    });
+    toasto.present();
+  }
+
 
   encontrar(data){
     let modal=this.modal.create("detail-usuario", {data:this.selected})
@@ -47,7 +87,9 @@ public selected:any={}
       .then(data =>{
         this.detail = data;
         console.log("Datos de creación",data);
-        location.reload()
+        this.presentToast();
+        this.usuarios.push(this.detail);
+        this.ngOnInit();
         
       })
   }
@@ -78,16 +120,20 @@ public selected:any={}
         this.detail=data;
         if(this.detail.status === 400){
           alert('No se puede ejecutar la acción, porque la ciudad tiene usuarios ')
-        }if(this.detail.status === 200){
-        console.log("Borrado", data);
-        alert('Borrado exitoso')
-        location.reload()
         }
+        // if(this.detail.status === 200){
+        // console.log("Borrado", data);
+        // this.eliminatedToast();
+        // this.ngOnInit();
+        // location.reload()
+        // }
       })
       .catch(error =>{
         if(error){
-          alert('Borrado exitoso')
-          location.reload()
+          this.eliminatedToast();
+          this.usuarios.push(this.detail);
+          this.ngOnInit();
+          // location.reload()
         }else{
           alert('no se borro el departamento')
         }

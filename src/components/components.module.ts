@@ -12,6 +12,10 @@ import { SortPipe } from '../pipes/sort/sort';
 import { LoginComponent } from './login/login';
 import { CalendarComponent } from './calendar/calendar';
 import { NotaComponent } from './nota/nota';
+import { TelefonoComponent } from './telefono/telefono';
+import { CorreoComponent } from './correo/correo';
+import { ClienteComponent } from './cliente/cliente';
+import {AutoCompleteModule} from 'primeng/autocomplete';
 
 @NgModule({
     declarations: [
@@ -24,11 +28,15 @@ import { NotaComponent } from './nota/nota';
         SortPipe,
         LoginComponent,
         CalendarComponent,
-    NotaComponent],
+    NotaComponent,
+    TelefonoComponent,
+    CorreoComponent,
+    ClienteComponent],
     imports: [
         IonicModule,
         FormsModule,
-        FullCalendarModule
+        FullCalendarModule,
+        AutoCompleteModule
     ],
     exports: [
         DepartamentosComponent,
@@ -40,6 +48,9 @@ import { NotaComponent } from './nota/nota';
         SortPipe,
         LoginComponent,
         CalendarComponent,
-    NotaComponent]
+    NotaComponent,
+    TelefonoComponent,
+    CorreoComponent,
+    ClienteComponent]
 })
 export class ComponentsModule { }
