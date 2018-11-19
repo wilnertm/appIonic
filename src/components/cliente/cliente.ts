@@ -1,22 +1,28 @@
+import { TestProvider } from './../../providers/test/test';
 import { Component } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
-/**
- * Generated class for the ClienteComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'cliente',
   templateUrl: 'cliente.html'
 })
 export class ClienteComponent {
-
+  public form: boolean;
   text: string;
+  public resultados: any [] = [];
+  public detail : any = {};
 
-  constructor() {
-    console.log('Hello ClienteComponent Component');
-    this.text = 'Hello World';
+  constructor(
+    private test: TestProvider
+  ) {}
+
+  crear(crearUsuario : NgForm){
+    this.test.generalPost('/cliente')
+      .then( data =>{
+        this.resultados = data;
+        console.log(this.resultados,"Post");
+        
+      })
   }
 
 }

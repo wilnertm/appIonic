@@ -15,6 +15,11 @@ export class DetailClientePage {
   public resultados: any = {};
   public details: any = {};
   public ciudades: any [] = [];
+  public nombreModulo = "clientes";
+  public agrgarNota: false;
+  public id= this.navParams.get('data').id;
+  public detail: any = {};
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -22,13 +27,11 @@ export class DetailClientePage {
     ) {}
 
   ionViewDidLoad() {
-
-    console.log('Datos',this.navParams.get('data'));
-
     if(this.navParams.get('data')){
+      console.log("f",this.navParams.get('data'));
       this.resultados = this.navParams.get('data');
-    }else{
-      this.navCtrl.pop()
+      // this.detalle(this.detail.id);
+      // this.id = this.detail.id;
     }
   }
 
@@ -37,7 +40,8 @@ export class DetailClientePage {
       .then( data =>{
         this.ciudades = data;
         console.log("Ciudades",this.ciudades);
-      })
+      });
+      
   }
 
   actualizar(id){
@@ -51,5 +55,13 @@ export class DetailClientePage {
   closeModal(){
     this.navCtrl.pop();
   }
+
+  // detalle(id) {
+  //   this.test.generalGet(`/cliente/${id}`, this.detail)
+  //     .then(data => {
+  //       this.resultados = data;
+  //       console.log("Get Detalle", this.resultados);
+  //     })
+  // }
 
 }

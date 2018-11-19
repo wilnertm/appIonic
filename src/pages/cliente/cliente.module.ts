@@ -3,6 +3,7 @@ import { IonicPageModule } from 'ionic-angular';
 import { ClientePage } from './cliente';
 import { ComponentsModule } from '../../components/components.module';
 import {AutoCompleteModule} from 'primeng/autocomplete';
+import {TableModule} from 'primeng/table';
 
 
 @NgModule({
@@ -12,7 +13,8 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
   imports: [
     IonicPageModule.forChild(ClientePage),
     ComponentsModule,
-    AutoCompleteModule  
+    AutoCompleteModule,
+    TableModule
   ],
 })
 export class ClientePageModule {}

@@ -1,4 +1,48 @@
-<!-- Generated template for the ClienteComponent component -->
 <div>
-  {{text}}
+  <button ion-button *ngIf="!form" (click)="form=true">Crear Cliente</button>
+  <div *ngIf="form">
+    <form (ngSubmit)="crear()" #crearUsuario="ngForm" novalidate>
+      <div>
+        <ion-item>
+          <ion-label color="primary">Nombre</ion-label>
+          <ion-input [(ngModel)]="detail.nombre" name="nombre" required id="nombre" #nombre="ngModel" #spy></ion-input>
+          <!-- <br>   TODO: remove this: {{spy.nombre}} -->
+          <ion-col [hidden]="nombre.valid || nombre.pristine">
+            Nombre Requerido
+          </ion-col>
+        </ion-item>
+        <ion-item>
+          <ion-label color="primary">Email</ion-label>
+          <ion-input type="email" [(ngModel)]="detail.email" (blur)="validarEmail(detail.email)" name="email" required
+            id="email" #email="ngModel" #spy></ion-input>
+          <!-- <br>   TODO: remove this: {{spy.nombre}} -->
+          <ion-col [hidden]="email.valid || email.pristine">
+            Nombre Requerido
+          </ion-col>
+        </ion-item>
+        <ion-item>
+          <ion-label>Ciudad</ion-label>
+          <ion-select [(ngModel)]="detail.id_ciudad" name="id" required>
+            <ion-option value="" disabled selected>Ciudad</ion-option>
+            <ion-option *ngFor="let ciudad of ciudades" [value]="ciudad.id">{{ciudad.nombre}}</ion-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label color="primary">Contraseña</ion-label>
+          <ion-input type="password" [(ngModel)]="detail.password" name="password" required id="password" #password="ngModel"
+            #spy></ion-input>
+          <!-- <br>   TODO: remove this: {{spy.nombre}} -->
+          <ion-col [hidden]="password.valid || password.pristine">
+            Nombre Requerido
+          </ion-col>
+        </ion-item>
+      </div>
+      <button ion-button type="submit" [disabled]="!crearUsuario.form.valid">
+        Crear
+      </button>
+      <button ion-button type="button" *ngIf="form" (click)="form=false" color="light">
+        <ion-icon name="close-circle"></ion-icon>
+      </button>
+    </form>
+  </div>
 </div>

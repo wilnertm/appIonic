@@ -35,9 +35,6 @@ export class NotaComponent {
     private test: TestProvider,
     private toastCtrl: ToastController,
   ) {
-    console.log("IdNota",this.getId);
-    console.log("NombreModulo", this.nombre);
-    
   }
 
   presentToast() {
@@ -50,6 +47,10 @@ export class NotaComponent {
   }
 
   ngOnInit(){
+    console.log("IdNota",this.getId);
+    console.log("NombreModulo", this.nombre);
+    
+
     this.test.generalPost('/nota' , {
       id_referencia:this.nombre,
       actividad: this.getId + ""

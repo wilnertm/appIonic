@@ -1,59 +1,48 @@
 <ion-header>
 
-  <ion-navbar>
-      <ion-col style="display: flex;justify-content: flex-end;">
-          <ion-title>Detalle de Cliente</ion-title>
-          <button ion-button type="button" (click)="closeModal()" color="light">
-              <ion-icon name="close-circle"></ion-icon>
-          </button>
-      </ion-col>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-col style="display: flex;justify-content: flex-end;">
+            <ion-title>Detalle de Cliente</ion-title>
+            <button ion-button type="button" (click)="closeModal()" color="light">
+                <ion-icon name="close-circle"></ion-icon>
+            </button>
+        </ion-col>
+    </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
     <ion-row>
-        <ion-col col-12>
-            <ion-item style="background-color: lightgrey;">
-                <span>Nombre: {{resultados.nombre}}</span>
-            </ion-item>
-
-            <ion-item style="background-color: lightgrey;">
-                <span>Ciudad: {{resultados.ciudadCliente?.nombre}}</span>
-            </ion-item>
+        <ion-col col-12 style="height: 4em;">
         </ion-col>
     </ion-row>
     <ion-row>
-        <ion-col col-12 style="height: 4em;">
-
+        <ion-col>
+            <ion-item>
+                <ion-label>Nombre: {{resultados.nombre}}</ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    Ciudad: {{resultados.ciudadCliente?.nombre}}
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>Correos: 
+                    <span *ngFor="let email of resultados.correosCliente">
+                        {{email.email}}
+                    </span>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>Telefonos: 
+                    <span *ngFor="let telefono of resultados.telefonosCliente">
+                        {{telefono.numero}}
+                    </span>
+                </ion-label>
+            </ion-item>
+            <nota [id]="id" [modulo]="nombreModulo"></nota>
         </ion-col>
     </ion-row>
-    <ion-row >
-        <ion-col col-12 style="display: flex;justify-content: center;align-items: center;">
-            <form #actualizarCliente="ngForm" (ngSubmit)="actualizar(resultados.id)" style="width: 50%;text-align: center;">
-                <ion-item col-12>
-                    <ion-input [(ngModel)]="resultados.nombre" name="Nombres" required></ion-input>
-                </ion-item>
-                <ion-item col-12>
-                    <ion-input [(ngModel)]="details.apellidos" name="Apellidos" required></ion-input>
-                </ion-item>
-                <ion-item col-12>
-                    <ion-input type="email" [(ngModel)]="details.email" name="email" placeholder="Email" required></ion-input>
-                </ion-item>
-                <ion-item col-12>
-                    <ion-input type="password" [(ngModel)]="details.password" name="password" placeholder="Contraseña" required></ion-input>
-                </ion-item>
-                <ion-item>
-                        <ion-label>Ciudad</ion-label>
-                        <ion-select [(ngModel)]="resultados.id_ciudad" name="id" required>
-                            <ion-option value="" disabled selected>Ciudad</ion-option>
-                            <ion-option *ngFor="let ciudad of ciudades" [value]="ciudad.id">{{ciudad.nombre}}</ion-option>
-                        </ion-select>
-                </ion-item>
-                <button ion-button type="submit" [disabled]="!actualizarCliente.form.valid" style="margin-top: .5em;">Actualizar</button>
-            </form> 
-        </ion-col>
-    </ion-row> 
 
 </ion-content>

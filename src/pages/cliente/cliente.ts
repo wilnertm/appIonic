@@ -20,6 +20,7 @@ export class ClientePage {
   text: string;
   results: string[];
   public detail: any = {};
+  public cols: any [] = [];
 
   constructor(
     public navCtrl: NavController, 
@@ -29,7 +30,6 @@ export class ClientePage {
     ) {}
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ClientePage');
   }
 
   ngOnInit(): void {
@@ -37,12 +37,38 @@ export class ClientePage {
       .then(data =>{
         this.resultados = data;
         console.log("Get",this.resultados);
-      })
+      });
+
+      this.cols = [
+        { field: 'Detalle', header: 'Detalle' },
+        { field: 'Nombre', header: 'Nombre' },
+        { field: 'Emails', header: 'Emails' },
+        { field: 'Telefonos', header: 'Telefonos' },
+        { field: 'Ciudad', header: 'Ciudad' }
+      ];
   }
 
   encontrar(data){
     let modal=this.modal.create("detail-cliente", {data:this.selected})
     modal.present();
+    // console.log("Datos",data);
+    
   }
+
+//   search(event) {
+//     this.test.generalPost('/findusuario', {
+//       nombres:this.text})
+//     .then(data => {
+//         this.results = data;
+//         console.log("Autocomplete",this.results);
+//         // this.results= this.detail.nombres;
+//     });
+// }
+
+// select(event){
+//   console.log("Seleccionado",event);
+//   this.selected = event;
+  
+// }
 
 }
