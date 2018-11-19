@@ -18,21 +18,29 @@ export class DetailCalendarPage {
   detail: any = {}
   resultados: any = {}
   actividad: any = {}
+  public usuario: any = {}
+  public usuarios: any [] = []
   public opciones: any []=[];
   public fechaInicial: Date;
   public fechaInicio: Date;
   public tipoActividad:any;
-  public fechaFin: Date; 
+  public fechaFin: Date;
+  public idCliente: any; 
   public asunto:string;
-  public estado: any;
+  public estados: any;
   public prioridades: any;
   public prioridad:any []=[];
   public tipos: any;
   public tipo:any []=[];
-  public estados:any []=[];
+  public estado:any []=[];
   public agrgarNota: false;
+  public agregarCliente: false;
+  public agregarUsuario: false;
   notas: any;
   public nombreModulo = "actividades";
+  text: string;
+  texto: string[];
+  results: string[];
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -62,6 +70,48 @@ export class DetailCalendarPage {
     
   }
 
+  select(event){
+
+    console.log("Seleccionado",event);
+    this.idCliente = event.id;
+  }
+
+  search(event) {
+      this.test.generalPost('/findCliente', {
+        nombre:this.text})
+      .then(data => {
+          this.results = data;
+          console.log("Autocomplete",this.results);
+          // this.results= this.detail.nombres;
+      });
+  }
+
+  Multiselect(event){
+    this.usuario = event;
+    console.log("Seleccionado",this.usuario);
+    
+  }
+
+  addMulti(){
+    this.usuarios.push(this.usuario);
+    console.log(this.usuarios,"ArregloAdd");
+    this.texto = null;
+  }
+
+  dropMulti(usuario){
+    this.usuarios.splice(this.usuario,1);
+    console.log(this.usuarios,"ArregloDrop");
+  }
+
+  Multisearch(event) {
+      this.test.generalPost('/findusuario', {
+        nombres:this.texto})
+      .then(data => {
+          this.results = data;
+          console.log("Autocomplete",this.results);
+      });
+  }
+
   categorizar(){       
     for(let i = 0; i < this.resultados.length;i++){
       if(this.resultados[i].categoria == 3){
@@ -74,12 +124,14 @@ export class DetailCalendarPage {
         this.tipo.push(this.resultados[i]);
       }
       if(this.resultados[i].categoria == 4){
-        this.estados.push(this.resultados[i]);
+        this.estado.push(this.resultados[i]);
       }
     }
     console.log("prioridad:",this.prioridad);
     console.log("tipo actividad:",this.opciones);
     console.log("tipo:",this.tipo);
+    console.log("Estado:",this.estado);
+
   }
 
   detalle(id) {
@@ -102,7 +154,8 @@ export class DetailCalendarPage {
     this.test.generalPut(`/actividad/${id}`, {
       fechaInicio:this.fechaInicio,
       fechaFin:moment(this.fechaFin).add(5, 'h').format(),
-      asunto: this.resultados.asunto
+      asunto: this.resultados.asunto,
+      idCliente: this.idCliente,
     })
       .then(data => {
         this.detail = data;
@@ -123,7 +176,8 @@ export class DetailCalendarPage {
       tipo_actividad: this.tipoActividad,
       tipo: this.tipos,
       prioridad: this.prioridades,
-      estado_actividad: this.estado
+      estado_actividad: this.estados,
+      idCliente: this.idCliente,
   })
       .then(data =>{
         this.resultados = data;

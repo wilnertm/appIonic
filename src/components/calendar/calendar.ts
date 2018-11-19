@@ -11,37 +11,37 @@ export class CalendarComponent {
 
     //Declaración de variables
     text: string;
-    events:any []
-    public detail:any ={}
-    public objeto:any ={}
-    resultados: any={}
+    events: any[]
+    public detail: any = {}
+    public objeto: any = {}
+    resultados: any = {}
     // Configuración de las opciones del calendar
-    options: any={
+    options: any = {
         editable: true,
-        selectable:true, 
-        startEditable:true,
-        durationEditable:true,
-        resourceEditable:true,
-        color:true,
-        textColor:true,
+        selectable: true,
+        startEditable: true,
+        durationEditable: true,
+        resourceEditable: true,
+        color: true,
+        textColor: true,
         allDay: true,
         //Eventos emitidos por el calendar
-        dateClick:(event, jsEvent, view) =>{
-            if(!event.event){
+        dateClick: (event, jsEvent, view) => {
+            if (!event.event) {
                 this.crear(event.date);
             }
-            else{
+            else {
                 this.encontrar(event.event.id)
                 //Pasando el id del evento para el modal del detalle para que se ejecute la función encontrar
             }
         },
-        eventClick:(event, jsEvent, view)=>{
+        eventClick: (event, jsEvent, view) => {
             this.encontrar(event.event.id)
             //Pasando el id del evento para el modal del detalle para que se ejecute la función encontrar
         },
-        eventDrop:(event , delta , revertFunc , jsEvent , ui , view )=>{
-            console.log("prueba",event.event)
-            this.actualizar(event.event.id,event.event)
+        eventDrop: (event, delta, revertFunc, jsEvent, ui, view) => {
+            console.log("prueba", event.event)
+            this.actualizar(event.event.id, event.event)
             //pasando el id del evento y el evento completo al arrastrarlo en el calendario para que se ejecute la función actualizar
         },
         //encabezado del calendario
@@ -55,58 +55,60 @@ export class CalendarComponent {
                 duration: { days: 7 },
                 buttonText: 'Semana'
             },
-            mes:{
+            mes: {
                 type: 'basic',
-                duration: {months: 1},
+                duration: { months: 1 },
                 buttonText: 'Mes'
             },
-            dia:{
+            dia: {
                 type: 'agenda',
-                duration: {days: 1},
+                duration: { days: 1 },
                 buttonText: 'Día'
             }
         }
     }
 
     constructor(
-        private test:TestProvider,
-        private modal:ModalController,
-    ) {}
+        private test: TestProvider,
+        private modal: ModalController,
+    ) { }
     ngOnInit() {
-        
+
         this.test.generalGet(`/actividad`)
-        .then(data=>{
-            this.events=data;
-            console.log("Actividades", this.events);
-            
-            //Igualando los datos del get a los eventos del calendario
-        })
+            .then(data => {
+                this.events = data;
+                console.log("Actividades", this.events);
+
+                //Igualando los datos del get a los eventos del calendario
+            })
     }
-    crear(date){
+    crear(date) {
         console.log("creando");
-        let modal=this.modal.create("detail-calendar",{event:date})
+        let modal = this.modal.create("detail-calendar", { event: date })
         //modal.onDismiss ejecucion de código despues de cerrar el modal
         modal.onDidDismiss(data => {
-            location.reload()
+            // location.reload()
+            this.ngOnInit();
+
             console.log(data);
         });
         modal.present();
     }
-    encontrar(id){
-        let modal=this.modal.create("detail-calendar", {data:id})
+    encontrar(id) {
+        let modal = this.modal.create("detail-calendar", { data: id })
         modal.onDidDismiss(data => {
             this.ngOnInit();
             // this.events.push(data);
             // location.reload()
-            console.log("Modal",data);
+            console.log("Modal", data);
         });
         modal.present();
     }
-    actualizar(id,event){
-        this.test.generalPut(`/actividad/${id}`, {fechaInicio:event.start,fechaFin:event.end})
-            .then( data =>{
-                this.resultados= data;
-                console.log("Actualizando", this.resultados);              
+    actualizar(id, event) {
+        this.test.generalPut(`/actividad/${id}`, { fechaInicio: event.start, fechaFin: event.end })
+            .then(data => {
+                this.resultados = data;
+                console.log("Actualizando", this.resultados);
             })
     }
 }

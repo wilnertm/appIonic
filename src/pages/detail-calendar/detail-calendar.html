@@ -20,7 +20,17 @@
             <ion-item>
                 <ion-label>Prioridad: {{resultados.opcionPrioridad?.descripcion}}</ion-label>
             </ion-item>
+            <ion-item *ngIf="resultados.opciones.descripcion == 'Tareas'">
+                <ion-label>Estado: {{resultados.estado?.descripcion}}</ion-label>
+            </ion-item>
             <nota [id]="resultados.id" [modulo]="nombreModulo"></nota>
+            <ion-col>
+                <ion-list>
+                    <div class="row" *ngFor="let item of resultadosGet">
+                        <ion-item>{{item.descripcion}}</ion-item>
+                    </div>
+                </ion-list>
+            </ion-col>
         </ion-row>
         <ion-row style="display: flex;justify-content: center;">
             <ion-col col-12 style="display: flex;justify-content: center;align-items: center;">
@@ -41,6 +51,25 @@
                         <ion-col col-6>
                             <ion-label>Fecha Final : </ion-label>
                             <p-calendar [(ngModel)]="fechaFin" name="Fecha Final" placeholder="Fecha Final"></p-calendar>
+                        </ion-col>
+                        <ion-item *ngIf="resultados.cliente_id">
+                            Cliente : {{resultados.clienteCreo?.nombre}}
+                        </ion-item>
+                        <button *ngIf="resultados.cliente_id == null" ion-button type="button" (click)="agregarCliente = true"
+                            color="default" icon-start small>
+                            <ion-icon name="add-circle"></ion-icon>Agregar Cliente
+                        </button>
+                        <button *ngIf="resultados.cliente_id" ion-button type="button" (click)="agregarCliente = true"
+                            color="default" icon-start small>
+                            <ion-icon name="add-circle"></ion-icon>Actualizar Cliente
+                        </button>
+                        <ion-col *ngIf="agregarCliente">
+                            <p-autoComplete [(ngModel)]="text" [suggestions]="results" field="nombre" name="cliente"
+                                (completeMethod)="search($event)" (onSelect)="select($event)">
+                            </p-autoComplete>
+                            <button ion-button type="button" (click)="agregarCliente = false" color="light">
+                                <ion-icon name="close-circle"></ion-icon>
+                            </button>
                         </ion-col>
                         <button ion-button type="submit" [disabled]="!actualizarActividad.form.valid" style="margin-top: .5em;">Actualizar</button>
                     </ion-row>
@@ -87,13 +116,42 @@
                             <ion-option *ngFor="let tip of tipo" [value]="tip.id">{{tip.descripcion}}</ion-option>
                         </ion-select>
                     </ion-item>
-                    <ion-select *ngIf="tipoActividad == 3">
+                    <ion-item *ngIf="tipoActividad == 3">
                         <ion-label>Estado</ion-label>
-                        <ion-select [(ngModel)]="estado" name="idEstado" required>
-                            <ion-option value="" disabled selected>Estado Actividad</ion-option>
-                            <ion-option *ngFor="let estad of estados" [value]="estad.id">{{estad.descripcion}}</ion-option>
+                        <ion-select [(ngModel)]="estados" name="idTipo" required>
+                            <ion-option value="" disabled selected>Estado</ion-option>
+                            <ion-option *ngFor="let tip of estado" [value]="tip.id">{{tip.descripcion}}</ion-option>
                         </ion-select>
-                    </ion-select>
+                    </ion-item>
+                    <button *ngIf="resultados.cliente_id == null" ion-button type="button" (click)="agregarUsuario = true"
+                        color="default" icon-start small>
+                        <ion-icon name="add-circle"></ion-icon>Agregar Usuario
+                    </button>
+                    <ion-col *ngIf="agregarUsuario">
+                        <p-autoComplete [(ngModel)]="texto" [suggestions]="results" field="nombres" name="cliente"
+                            (completeMethod)="Multisearch($event)" (onSelect)="Multiselect($event)" >
+                        </p-autoComplete>
+                        <button ion-button type="button" (click)="addMulti()" color="light">
+                            <ion-icon name="add-circle"></ion-icon>
+                        </button>
+                        <ion-item *ngFor="let u of usuarios">
+                            {{u.nombres}}
+                            <button ion-button type="button" (click)="dropMulti(u)" color="light">
+                                    <ion-icon name="close-circle"></ion-icon>
+                                </button>
+                        </ion-item>
+                    </ion-col>
+                    <button ion-button type="button" (click)="agregarCliente = true" color="default" icon-start small>
+                        <ion-icon name="add-circle"></ion-icon>Agregar Cliente
+                    </button>
+                    <ion-col *ngIf="agregarCliente">
+                        <p-autoComplete [(ngModel)]="text" [suggestions]="results" field="nombre" name="cliente"
+                            (completeMethod)="search($event)" (onSelect)="select($event)">
+                        </p-autoComplete>
+                        <button ion-button type="button" (click)="agregarCliente = false" color="light">
+                            <ion-icon name="close-circle"></ion-icon>
+                        </button>
+                    </ion-col>
                     <button ion-button type="submit" [disabled]="!crearActividad.form.valid" style="margin-top: .5em;margin-left: 8em;">Crear</button>
                 </form>
             </ion-col>
