@@ -21,6 +21,9 @@ export class ClientePage {
   results: string[];
   public detail: any = {};
   public cols: any [] = [];
+  public correos: any [] = [];
+  email: any;
+  public agregarCorreo : false;
 
   constructor(
     public navCtrl: NavController, 
@@ -55,20 +58,19 @@ export class ClientePage {
     
   }
 
-//   search(event) {
-//     this.test.generalPost('/findusuario', {
-//       nombres:this.text})
-//     .then(data => {
-//         this.results = data;
-//         console.log("Autocomplete",this.results);
-//         // this.results= this.detail.nombres;
-//     });
-// }
+filterGlobal(event){
+  this.test.generalGet('/findCliente',{
+    nombre:event.nombre
+  })
+    .then( data =>{
+      this.resultados = data;
+    })
+  }
 
-// select(event){
-//   console.log("Seleccionado",event);
-//   this.selected = event;
-  
-// }
+  addEmail(email){
+    this.correos.push(this.email)
+    console.log("correos", this.email);
+    
+  }
 
 }

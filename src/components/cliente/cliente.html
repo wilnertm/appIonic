@@ -13,8 +13,8 @@
         </ion-item>
         <ion-item>
           <ion-label color="primary">CN</ion-label>
-          <ion-input type="email" [(ngModel)]="detail.cn" (blur)="validarCn(detail.cn)" name="cn" required
-            id="cn" #cn="ngModel" #spy></ion-input>
+          <ion-input type="email" [(ngModel)]="detail.cn" (blur)="validarCn(detail.cn)" name="cn" required id="cn" #cn="ngModel"
+            #spy></ion-input>
           <!-- <br>   TODO: remove this: {{spy.nombre}} -->
           <ion-col [hidden]="cn.valid || cn.pristine">
             Nombre Requerido
@@ -29,8 +29,7 @@
         </ion-item>
         <ion-item>
           <ion-label color="primary">NIT</ion-label>
-          <ion-input type="text" [(ngModel)]="detail.nit" name="nit" required id="nit" #nit="ngModel"
-            #spy></ion-input>
+          <ion-input type="text" [(ngModel)]="detail.nit" name="nit" required id="nit" #nit="ngModel" #spy></ion-input>
           <!-- <br>   TODO: remove this: {{spy.nombre}} -->
           <ion-col [hidden]="nit.valid || nit.pristine">
             Nombre Requerido
@@ -40,9 +39,25 @@
       <button ion-button type="submit" [disabled]="!crearUsuario.form.valid">
         Crear
       </button>
-      <button ion-button type="button" *ngIf="form" (click)="form=false" color="light">
+      <button ion-button type="button" *ngIf="form" (click)="form=false" color="light" style="margin-left: 1em;">
         <ion-icon name="close-circle"></ion-icon>
       </button>
+      <button ion-button type="button" (click)="agregarCorreo = true" color="default" icon-start small>
+        <ion-icon name="add-circle"></ion-icon>Agregar Correo
+      </button>
+      <ion-col *ngIf="agregarCorreo">
+        <ion-input type="text" [(ngModel)]="email" name="correo" required id="correo" #correo="ngModel" #spy>
+          <button ion-button type="button" (click)="addEmail(email)" color="light">
+            <ion-icon name="add-circle"></ion-icon>
+          </button>
+        </ion-input>
+        <ion-item *ngFor="let u of correos">
+          {{u}}
+          <button ion-button type="button" (click)="dropMulti(u)" color="light">
+            <ion-icon name="close-circle"></ion-icon>
+          </button>
+        </ion-item>
+      </ion-col>
     </form>
   </div>
 </div>

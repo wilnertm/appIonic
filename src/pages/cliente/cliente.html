@@ -9,7 +9,12 @@
     <ion-grid>
         <ion-row col-12 style="justify-content:center;">
             <ion-col col-12 col-md-9 style="display: flex;justify-content: center">
-                <p-table [value]="resultados">
+                <p-table #tt [value]="resultados" [globalFilterFields]="['nombre','ciudadCliente.nombre']">
+                    <ng-template pTemplate="caption">
+                        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                        <input type="text" pInputText size="50" placeholder="Filtro global" (input)="tt.filterGlobal($event.target.value, 'contains')"
+                            style="width:auto">
+                    </ng-template>
                     <ng-template pTemplate="header">
                         <tr>
                             <th *ngFor="let col of cols">

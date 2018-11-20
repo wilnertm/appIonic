@@ -74,7 +74,6 @@ export class DetailCalendarPage {
 
     console.log("Seleccionado",event);
     this.idCliente = event.id;
-    this.text = event.nombre + "";
   }
 
   search(event) {
