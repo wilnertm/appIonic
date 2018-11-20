@@ -178,6 +178,7 @@ export class DetailCalendarPage {
       prioridad: this.prioridades,
       estado_actividad: this.estados,
       idCliente: this.idCliente,
+      usuario: this.usuarios
   })
       .then(data =>{
         this.resultados = data;

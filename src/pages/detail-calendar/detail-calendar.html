@@ -20,7 +20,7 @@
             <ion-item>
                 <ion-label>Prioridad: {{resultados.opcionPrioridad?.descripcion}}</ion-label>
             </ion-item>
-            <ion-item *ngIf="resultados.opciones.descripcion == 'Tareas'">
+            <ion-item *ngIf="resultados.opciones?.descripcion == 'Tareas'">
                 <ion-label>Estado: {{resultados.estado?.descripcion}}</ion-label>
             </ion-item>
             <nota [id]="resultados.id" [modulo]="nombreModulo"></nota>
