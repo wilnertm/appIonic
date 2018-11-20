@@ -147,6 +147,12 @@
                     <ion-col *ngIf="agregarCliente">
                         <p-autoComplete [(ngModel)]="text" [suggestions]="results" field="nombre" name="cliente"
                             (completeMethod)="search($event)" (onSelect)="select($event)">
+                            <ng-template let-group pTemplate="item">
+                                    <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
+                                        <div style="font-size:18px;margin:10px 10px 0 0">{{group.nombre}}</div>
+                                        <div style="font-size:10px;margin:10px 10px 0 0">{{group.cn}}</div>
+                                    </div>
+                                </ng-template>
                         </p-autoComplete>
                         <button ion-button type="button" (click)="agregarCliente = false" color="light">
                             <ion-icon name="close-circle"></ion-icon>

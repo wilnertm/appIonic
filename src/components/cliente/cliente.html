@@ -12,11 +12,11 @@
           </ion-col>
         </ion-item>
         <ion-item>
-          <ion-label color="primary">Email</ion-label>
-          <ion-input type="email" [(ngModel)]="detail.email" (blur)="validarEmail(detail.email)" name="email" required
-            id="email" #email="ngModel" #spy></ion-input>
+          <ion-label color="primary">CN</ion-label>
+          <ion-input type="email" [(ngModel)]="detail.cn" (blur)="validarCn(detail.cn)" name="cn" required
+            id="cn" #cn="ngModel" #spy></ion-input>
           <!-- <br>   TODO: remove this: {{spy.nombre}} -->
-          <ion-col [hidden]="email.valid || email.pristine">
+          <ion-col [hidden]="cn.valid || cn.pristine">
             Nombre Requerido
           </ion-col>
         </ion-item>
@@ -28,11 +28,11 @@
           </ion-select>
         </ion-item>
         <ion-item>
-          <ion-label color="primary">Contraseña</ion-label>
-          <ion-input type="password" [(ngModel)]="detail.password" name="password" required id="password" #password="ngModel"
+          <ion-label color="primary">NIT</ion-label>
+          <ion-input type="text" [(ngModel)]="detail.nit" name="nit" required id="nit" #nit="ngModel"
             #spy></ion-input>
           <!-- <br>   TODO: remove this: {{spy.nombre}} -->
-          <ion-col [hidden]="password.valid || password.pristine">
+          <ion-col [hidden]="nit.valid || nit.pristine">
             Nombre Requerido
           </ion-col>
         </ion-item>

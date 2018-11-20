@@ -38,7 +38,7 @@ export class DetailCalendarPage {
   public agregarUsuario: false;
   notas: any;
   public nombreModulo = "actividades";
-  text: string;
+  text: any;
   texto: string[];
   results: string[];
   constructor(
@@ -74,11 +74,13 @@ export class DetailCalendarPage {
 
     console.log("Seleccionado",event);
     this.idCliente = event.id;
+    this.text = event.nombre + "";
   }
 
   search(event) {
       this.test.generalPost('/findCliente', {
-        nombre:this.text})
+        nombre:this.text,
+        cn:this.text})
       .then(data => {
           this.results = data;
           console.log("Autocomplete",this.results);
@@ -105,7 +107,8 @@ export class DetailCalendarPage {
 
   Multisearch(event) {
       this.test.generalPost('/findusuario', {
-        nombres:this.texto})
+        nombres:this.texto,
+        cn: this.texto})
       .then(data => {
           this.results = data;
           console.log("Autocomplete",this.results);
