@@ -14,63 +14,62 @@ import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angu
 
 export class ClientePage {
 
-  resultados: any []=[];
+  resultados: any[] = [];
   public form = false;
-  public selected:any={}
+  public selected: any = {}
   text: string;
   results: string[];
   public detail: any = {};
-  public cols: any [] = [];
-  public correos: any [] = [];
-  email: any;
-  public agregarCorreo : false;
+  public cols: any[] = [];
+
 
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public navParams: NavParams,
     private test: TestProvider,
     public modal: ModalController
-    ) {}
+  ) { }
 
   ionViewDidLoad() {
   }
 
+  onTypeEmitted(event) {
+    this.resultados.push(event)
+    console.log("Evento", event)
+    this.ngOnInit();
+  }
+
   ngOnInit(): void {
     this.test.generalGet('/cliente')
-      .then(data =>{
+      .then(data => {
         this.resultados = data;
-        console.log("Get",this.resultados);
+        console.log("Get", this.resultados);
       });
 
-      this.cols = [
-        { field: 'Detalle', header: 'Detalle' },
-        { field: 'Nombre', header: 'Nombre' },
-        { field: 'Emails', header: 'Emails' },
-        { field: 'Telefonos', header: 'Telefonos' },
-        { field: 'Ciudad', header: 'Ciudad' }
-      ];
+    this.cols = [
+      { field: 'Detalle', header: 'Detalle' },
+      { field: 'Nombre', header: 'Nombre' },
+      { field: 'Emails', header: 'Emails' },
+      { field: 'Telefonos', header: 'Telefonos' },
+      { field: 'Ciudad', header: 'Ciudad' }
+    ];
   }
 
-  encontrar(data){
-    let modal=this.modal.create("detail-cliente", {data:this.selected})
+  encontrar(data) {
+    let modal = this.modal.create("detail-cliente", { data: this.selected })
     modal.present();
     // console.log("Datos",data);
-    
+
   }
 
-filterGlobal(event){
-  this.test.generalGet('/findCliente',{
-    nombre:event.nombre
-  })
-    .then( data =>{
-      this.resultados = data;
+  filterGlobal(event) {
+    this.test.generalGet('/findCliente', {
+      nombre: event.nombre
     })
+      .then(data => {
+        this.resultados = data;
+      })
   }
 
-  addEmail(email){
-    this.correos.push(this.email)
-    console.log("correos", this.email);
-    
-  }
 
 }

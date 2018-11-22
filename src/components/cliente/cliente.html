@@ -1,7 +1,7 @@
 <div>
   <button ion-button *ngIf="!form" (click)="form=true">Crear Cliente</button>
   <div *ngIf="form">
-    <form (ngSubmit)="crear()" #crearUsuario="ngForm" novalidate>
+    <form (ngSubmit)="crear();crearCliente.form.reset();" #crearCliente="ngForm" novalidate>
       <div>
         <ion-item>
           <ion-label color="primary">Nombre</ion-label>
@@ -13,7 +13,7 @@
         </ion-item>
         <ion-item>
           <ion-label color="primary">CN</ion-label>
-          <ion-input type="email" [(ngModel)]="detail.cn" (blur)="validarCn(detail.cn)" name="cn" required id="cn" #cn="ngModel"
+          <ion-input [(ngModel)]="detail.cn" (blur)="validarCn(detail.cn)" name="cn" required id="cn" #cn="ngModel"
             #spy></ion-input>
           <!-- <br>   TODO: remove this: {{spy.nombre}} -->
           <ion-col [hidden]="cn.valid || cn.pristine">
@@ -35,29 +35,57 @@
             Nombre Requerido
           </ion-col>
         </ion-item>
+        <ion-col *ngIf="agregarCorreo">
+          <ion-item>
+            <ion-input type="text" [(ngModel)]="email" name="correo" id="correo" #correo="ngModel" #spy placeholder="E-mail">
+            </ion-input>
+            <button ion-button type="button" (click)="addEmail(email)" color="light" item-right>
+              <ion-icon name="add-circle"></ion-icon>
+            </button>
+          </ion-item>
+
+          <ion-item *ngFor="let u of correos">
+            {{u}}
+            <button ion-button type="button" (click)="dropEmail(u)" color="light" style="color: red;">
+              <ion-icon name="close-circle"></ion-icon>
+            </button>
+          </ion-item>
+        </ion-col>
+        <ion-col *ngIf="agregarTelefono">
+          <ion-item>
+            <ion-input type="text" [(ngModel)]="telefono" name="telefono1" id="telefono1" #telefono1="ngModel" #spy
+              placeholder="# De Telefono">
+            </ion-input>
+            <button ion-button type="button" (click)="addPhone(telefono)" color="light" item-right>
+              <ion-icon name="add-circle"></ion-icon>
+            </button>
+
+          </ion-item>
+
+          <ion-item *ngFor="let a of telefonos">
+            {{a}}
+            <button ion-button type="button" (click)="dropPhone(a)" color="light" style="color: red;">
+              <ion-icon name="close-circle"></ion-icon>
+            </button>
+          </ion-item>
+        </ion-col>
+
       </div>
-      <button ion-button type="submit" [disabled]="!crearUsuario.form.valid">
+      <button ion-button type="submit" [disabled]="!crearCliente.form.valid">
         Crear
       </button>
-      <button ion-button type="button" *ngIf="form" (click)="form=false" color="light" style="margin-left: 1em;">
+      <button ion-button type="button" *ngIf="form" (click)="form=false" color="light" style="margin-left: 1em;color:red;">
         <ion-icon name="close-circle"></ion-icon>
       </button>
-      <button ion-button type="button" (click)="agregarCorreo = true" color="default" icon-start small>
-        <ion-icon name="add-circle"></ion-icon>Agregar Correo
+      <button ion-button type="button" (click)="agregarCorreo = true" color="light" *ngIf="!agregarCorreo" icon-start
+        small>
+        <ion-icon name="add-circle"></ion-icon>Correos
       </button>
-      <ion-col *ngIf="agregarCorreo">
-        <ion-input type="text" [(ngModel)]="email" name="correo" required id="correo" #correo="ngModel" #spy>
-          <button ion-button type="button" (click)="addEmail(email)" color="light">
-            <ion-icon name="add-circle"></ion-icon>
-          </button>
-        </ion-input>
-        <ion-item *ngFor="let u of correos">
-          {{u}}
-          <button ion-button type="button" (click)="dropMulti(u)" color="light">
-            <ion-icon name="close-circle"></ion-icon>
-          </button>
-        </ion-item>
-      </ion-col>
+      <button ion-button type="button" (click)="agregarTelefono = true" color="light" *ngIf="!agregarTelefono"
+        icon-start small>
+        <ion-icon name="add-circle"></ion-icon>Telefonos
+      </button>
+
     </form>
   </div>
 </div>
