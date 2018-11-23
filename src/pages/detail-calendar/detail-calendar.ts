@@ -69,9 +69,7 @@ export class DetailCalendarPage {
       })
     
   }
-
   select(event){
-
     console.log("Seleccionado",event);
     this.idCliente = event.id;
   }
@@ -133,7 +131,6 @@ export class DetailCalendarPage {
     console.log("tipo actividad:",this.opciones);
     console.log("tipo:",this.tipo);
     console.log("Estado:",this.estado);
-
   }
 
   detalle(id) {

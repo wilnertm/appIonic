@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { TestProvider } from '../../providers/test/test';
 import { ModalController } from 'ionic-angular';
-import { months } from 'moment';
 
 @Component({
     selector: 'calendar',
@@ -67,18 +66,15 @@ export class CalendarComponent {
             }
         }
     }
-
     constructor(
         private test: TestProvider,
         private modal: ModalController,
     ) { }
     ngOnInit() {
-
         this.test.generalGet(`/actividad`)
             .then(data => {
                 this.events = data;
                 console.log("Actividades", this.events);
-
                 //Igualando los datos del get a los eventos del calendario
             })
     }
@@ -89,7 +85,6 @@ export class CalendarComponent {
         modal.onDidDismiss(data => {
             // location.reload()
             this.ngOnInit();
-
             console.log(data);
         });
         modal.present();
