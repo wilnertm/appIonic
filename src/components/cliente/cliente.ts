@@ -15,7 +15,12 @@ export class ClienteComponent {
   public form: boolean;
   text: string;
   public resultados: any[] = [];
-  public detail: any = {};
+  public detail: any = {
+    nombre: "",
+    id_ciudad: 0,
+    cn: "",
+    nit: "",
+  };
   public ciudades: any[] = []
   details: any = {}
   public correos: any[] = []
@@ -47,10 +52,7 @@ export class ClienteComponent {
     console.log("Detalle", this.detail);
     console.log("Correos", this.correos);
     this.test.generalPost('/cliente', {
-      nombre: this.detail.nombre,
-      cn: this.detail.cn,
-      id_ciudad: this.detail.id_ciudad,
-      nit: this.detail.nit,
+      detail: this.detail,
       correos: this.correos,
       telefonos: this.telefonos
     })
@@ -65,11 +67,9 @@ export class ClienteComponent {
         this.telefonos = null;
       })
   }
-
   emit() {
     this.typeChanged.emit(this.resultados);
   }
-
   validarCn(cn) {
     this.test.generalPost(`/cliente/cn`, {
       cn: this.detail.cn
@@ -82,9 +82,7 @@ export class ClienteComponent {
           alert('El código ya existe')
           this.detail.cn = "";
         }
-
         console.log("Validación de Código", this.detail);
-
       })
   }
   addEmail(email) {
@@ -92,19 +90,15 @@ export class ClienteComponent {
     console.log("correos", this.correos);
     this.email = null;
   }
-
   dropEmail(email) {
     this.correos.splice(this.email, 1);
     console.log(this.correos, "Drop Email");
   }
-
-
   addPhone(telefono) {
     this.telefonos.push(this.telefono)
     console.log("Telefonos", this.telefonos);
     this.telefono = null;
   }
-
   dropPhone(telefono) {
     this.telefonos.splice(this.telefono, 1);
     console.log(this.telefonos, "Drop Phone");

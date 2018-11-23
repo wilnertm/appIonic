@@ -4,6 +4,16 @@
     <form (ngSubmit)="crear();crearCliente.form.reset();" #crearCliente="ngForm" novalidate>
       <div>
         <ion-item>
+          <button ion-button type="button" (click)="agregarCorreo = true" color="light" *ngIf="!agregarCorreo"
+            icon-start small>
+            <ion-icon name="add-circle"></ion-icon>Correos
+          </button>
+          <button ion-button type="button" (click)="agregarTelefono = true" color="light" *ngIf="!agregarTelefono"
+            icon-start small>
+            <ion-icon name="add-circle"></ion-icon>Telefonos
+          </button>
+        </ion-item>
+        <ion-item>
           <ion-label color="primary">Nombre</ion-label>
           <ion-input [(ngModel)]="detail.nombre" name="nombre" required id="nombre" #nombre="ngModel" #spy></ion-input>
           <!-- <br>   TODO: remove this: {{spy.nombre}} -->
@@ -77,14 +87,14 @@
       <button ion-button type="button" *ngIf="form" (click)="form=false" color="light" style="margin-left: 1em;color:red;">
         <ion-icon name="close-circle"></ion-icon>
       </button>
-      <button ion-button type="button" (click)="agregarCorreo = true" color="light" *ngIf="!agregarCorreo" icon-start
+      <!-- <button ion-button type="button" (click)="agregarCorreo = true" color="light" *ngIf="!agregarCorreo" icon-start
         small>
         <ion-icon name="add-circle"></ion-icon>Correos
       </button>
       <button ion-button type="button" (click)="agregarTelefono = true" color="light" *ngIf="!agregarTelefono"
         icon-start small>
         <ion-icon name="add-circle"></ion-icon>Telefonos
-      </button>
+      </button> -->
 
     </form>
   </div>
