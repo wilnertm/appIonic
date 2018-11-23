@@ -1,8 +1,12 @@
 import { Component } from '@angular/core';
 import { TestProvider } from '../../providers/test/test';
 import { NgForm } from '@angular/forms'; 
-import { ModalController } from 'ionic-angular';
+import { ModalController, ToastController } from 'ionic-angular';
 
+class detail  {
+  nombre: string = '';
+  id_departamento: number = 0;
+}
 @Component({
   selector: 'ciudades',
   templateUrl: 'ciudades.html'
@@ -11,13 +15,19 @@ export class CiudadesComponent {
 
 public ciudades:any[]=[]
 public departamentos:any[]=[]
-public detail:any={}
+public detail: detail ={
+  nombre: "",
+  id_departamento: 0,
+}
 public selected:any={}
 public form:boolean;
+resultados: any = {};
+eliminacion: any = {};
 
   constructor(
     private test:TestProvider,
-    private modal:ModalController
+    private modal:ModalController,
+    private toastCtrl: ToastController
   ) {}
 
 ngOnInit(): void {
@@ -40,11 +50,41 @@ ngOnInit(): void {
 crear(crearCiudad: NgForm){
   this.test.generalPost(`/ciudad`,this.detail)
     .then( data =>{
-      this.detail = data;
-      console.log("Datos",data);
-      location.reload()
-      
+      this.resultados = data;
+      console.log("Datos",this.resultados);
+      this.ciudades.push(this.resultados)
+      console.log(this.ciudades,"Objeto Ciudad")
+      this.presentToast();
+      this.ngOnInit();
     })
+}
+
+presentToast() {
+  let toast = this.toastCtrl.create({
+    message: 'Ciudad Creada Exitosamente',
+    duration: 3000,
+    position: 'top'
+  });
+  toast.present();
+
+}
+
+eliminatedToast() {
+  let toasto = this.toastCtrl.create({
+    message: 'La ciudad fue eliminada',
+    duration: 3000,
+    position: 'top'
+  });
+  toasto.present();
+}
+
+advertisementToast() {
+  let toasto = this.toastCtrl.create({
+    message: 'No se puede ejecutar la acción, porque la ciudad tiene usuarios ',
+    duration: 3000,
+    position: 'top'
+  });
+  toasto.present();
 }
 
 encontrar(id){
@@ -53,25 +93,28 @@ encontrar(id){
 }
 
 eliminar(id){
-  this.test.generalDelete(`/ciudad/${id}`,{
-    id:this.detail.id
-  })
+  this.test.generalDelete(`/ciudad/${id}`
+  )
     .then( data =>{
-      this.detail=data;
-      if(this.detail.status === 400){
-        alert('No se puede ejecutar la acción, porque la ciudad tiene usuarios ')
-      }if(this.detail.status === 200){
+      this.eliminacion=data;
+      if(this.eliminacion.status === 400){
+        // alert('No se puede ejecutar la acción, porque la ciudad tiene usuarios ')
+        this.advertisementToast()
+      }if(this.eliminacion.status === 200){
       console.log("Borrado", data);
-      alert('Borrado exitoso')
+      // alert('Borrado exitoso')
+        this.eliminatedToast();
       location.reload()
       }
     })
     .catch(error =>{
       if(error){
-        alert('Borrado exitoso')
-        location.reload()
+        this.eliminatedToast();
+        // location.reload()
+        this.ngOnInit();
       }else{
-        alert('no se borro el departamento')
+        // alert('no se borro el departamento')
+        this.advertisementToast()
       }
     })
     

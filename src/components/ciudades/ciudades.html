@@ -15,7 +15,7 @@
                         <div class="col">{{ciudad.nombre}}</div>
                         <div class="col">{{ciudad.departamentos?.nombre}}</div>
                         <div class="col" style="display: flex;
-                        justify-content: center;"><ion-badge>{{ciudad.usuarios.length}}</ion-badge></div>
+                        justify-content: center;"><ion-badge>{{ciudad.usuarios?.length}}</ion-badge></div>
                         <div class="col" style="display: flex;justify-content: center;">
                             <button ion-button type="button" (click)="eliminar(ciudad.id)" color="light" style="height: 1.5em;">
                                 <ion-icon name="close-circle"></ion-icon>
@@ -27,14 +27,14 @@
             <ion-col col-12 col-md-3 style="display: flex;justify-content: center;align-items: center">
                 <button ion-button *ngIf="!form" (click)="form=true"  >Crear Ciudad</button>
                 <div *ngIf="form">
-                    <form (ngSubmit)="crear()" #crearCiudad="ngForm">
+                    <form (ngSubmit)="crear();crearCiudad.form.reset();" #crearCiudad="ngForm">
                         <div>
                             <ion-item style="padding: 0;">
                             <ion-label color="primary">Nombre</ion-label>
                             <ion-input  [(ngModel)]="detail.nombre" name="nombre" required id="nombre" 
                                 #nombre="ngModel" #spy></ion-input>
                                 <!-- <br>   TODO: remove this: {{spy.className}} -->
-                            <div [hidden]="nombre.form?.valid || nombre.form?.pristine">
+                            <div [hidden]="nombre.valid || nombre.pristine">
                                 Nombre Requerido
                             </div>  
                             </ion-item>
