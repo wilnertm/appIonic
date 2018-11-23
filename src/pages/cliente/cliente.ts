@@ -48,7 +48,9 @@ export class ClientePage {
 
     this.cols = [
       { field: 'Detalle', header: 'Detalle' },
+      { header: 'CN' },
       { field: 'Nombre', header: 'Nombre' },
+      { header: 'Nit' },
       { field: 'Emails', header: 'Emails' },
       { field: 'Telefonos', header: 'Telefonos' },
       { field: 'Ciudad', header: 'Ciudad' }

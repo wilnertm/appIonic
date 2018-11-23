@@ -9,7 +9,7 @@
     <ion-grid>
         <ion-row col-12 style="justify-content:center;">
             <ion-col col-12 col-md-9 style="display: flex;justify-content: center">
-                <p-table #tt [value]="resultados" [globalFilterFields]="['nombre','ciudadCliente.nombre']">
+                <p-table #tt [value]="resultados" [globalFilterFields]="['nombre','ciudadCliente.nombre','cn','nit','email']">
                     <ng-template pTemplate="caption">
                         <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
                         <input type="text" pInputText size="50" placeholder="Filtro global" (input)="tt.filterGlobal($event.target.value, 'contains')"
@@ -27,9 +27,16 @@
                             <td>
                                 <a (click)="encontrar(selected=prueba)" style="cursor:pointer;">
                                     <ion-icon name="eye"></ion-icon>
-                                </a> </td>
+                                </a> 
+                            </td>
+                            <td>
+                                {{prueba.cn}}
+                            </td>
                             <td>
                                 {{prueba.nombre}}
+                            </td>
+                            <td>
+                                {{prueba.nit}}
                             </td>
                             <td>
                                 <span *ngFor="let email of prueba.correosCliente">
