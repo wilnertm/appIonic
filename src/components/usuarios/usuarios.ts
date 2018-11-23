@@ -2,13 +2,7 @@ import { ModalController, ToastController } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { TestProvider } from '../../providers/test/test';
 import { NgForm } from '@angular/forms';
-class detail {
-  nombres: string = '';
-  apellidos: string = '';
-  id_ciudad: number = 0;
-  email: string = '';
-  password: string = '';
-}
+
 @Component({
   selector: 'usuarios',
   templateUrl: 'usuarios.html'
@@ -29,7 +23,7 @@ export class UsuariosComponent {
   resultados: any = {};
   eliminacion: any = {};
 
-  public detail: detail = {
+  public detail: any = {
     nombres: "",
     apellidos: "",
     id_ciudad: 0,
@@ -49,20 +43,16 @@ export class UsuariosComponent {
       .then(data => {
         this.usuarios = data;
         console.log("Usuarios", this.usuarios);
-
       })
-
     this.test.generalGet(`/ciudad`)
       .then(data => {
         this.ciudades = data;
         console.log("ciudades", this.ciudades);
-
       })
   }
   select(event) {
     console.log("Seleccionado", event);
     this.text = event.id;
-
   }
 
   search(event) {
@@ -82,7 +72,6 @@ export class UsuariosComponent {
       position: 'top'
     });
     toast.present();
-
   }
 
   eliminatedToast() {
@@ -125,17 +114,12 @@ export class UsuariosComponent {
         alert('El email ya existe')
           this.detail.email = null;
         }
-
         console.log("Validación de email", this.detail);
-
       })
   }
 
   eliminar(usuario) {
     this.test.generalDelete(`/usuario/${usuario.id}`
-      // ,{
-      //   id:this.detail.id
-      // }
     )
       .then(data => {
         this.eliminacion = data;
@@ -152,7 +136,6 @@ export class UsuariosComponent {
           alert('no se borro el departamento')
         }
       })
-
   }
 
 }

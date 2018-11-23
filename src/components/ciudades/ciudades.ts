@@ -3,10 +3,7 @@ import { TestProvider } from '../../providers/test/test';
 import { NgForm } from '@angular/forms'; 
 import { ModalController, ToastController } from 'ionic-angular';
 
-class detail  {
-  nombre: string = '';
-  id_departamento: number = 0;
-}
+
 @Component({
   selector: 'ciudades',
   templateUrl: 'ciudades.html'
@@ -15,7 +12,7 @@ export class CiudadesComponent {
 
 public ciudades:any[]=[]
 public departamentos:any[]=[]
-public detail: detail ={
+public detail: any ={
   nombre: "",
   id_departamento: 0,
 }

@@ -2,9 +2,7 @@ import { Component } from '@angular/core';
 import { TestProvider } from '../../providers/test/test'
 import { ModalController, ToastController } from 'ionic-angular';
 
-class detail {
-  nombre: string = "";
-}
+
 @Component({
   selector: 'departamentos',
   templateUrl: 'departamentos.html'
@@ -25,7 +23,8 @@ export class DepartamentosComponent {
   public idSelected: string = ""
   public selected: any = {}
   public form: boolean;
-  public detail: detail = {
+
+  public detail: any = {
     nombre: "",
   }
 
@@ -34,9 +33,7 @@ export class DepartamentosComponent {
       .then(data => {
         this.departamentos = data;
         console.log("Departamentos", data);
-
       })
-
   }
 
 
@@ -73,7 +70,6 @@ export class DepartamentosComponent {
         } else {
           this.eliminatedToast();
         }
-
       })
   }
 
