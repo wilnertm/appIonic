@@ -21,6 +21,12 @@ export class ClientePage {
   results: string[];
   public detail: any = {};
   public cols: any[] = [];
+  public totalRecords: number;
+  public loading: boolean;
+  public rows: any;
+  count: number;
+  prueba: any [] = []
+  nombre = "";
 
 
   constructor(
@@ -39,13 +45,7 @@ export class ClientePage {
     this.ngOnInit();
   }
 
-  ngOnInit(): void {
-    this.test.generalGet('/cliente')
-      .then(data => {
-        this.resultados = data;
-        console.log("Get", this.resultados);
-      });
-
+  ngOnInit(){
     this.cols = [
       { field: 'Detalle', header: 'Detalle' },
       { header: 'CN' },
@@ -55,6 +55,7 @@ export class ClientePage {
       { field: 'Telefonos', header: 'Telefonos' },
       { field: 'Ciudad', header: 'Ciudad' }
     ];
+    
   }
 
   encontrar(data) {
@@ -72,6 +73,28 @@ export class ClientePage {
         this.resultados = data;
       })
   }
+
+  loadCarsLazy(event) {
+    console.log("Lazy",event);
+    this.loading = true;
+    if(event.globalFilter == null){
+      event.globalFilter = "";
+    }
+    this.test.generalPost('/clientes',{
+      rango: event.first,
+      nombre: event.globalFilter
+    })
+      .then(data => {
+        this.resultados = data['rows'];
+        console.log("Get", this.resultados);
+        this.totalRecords = data['count'];
+      });
+    setTimeout(() => {
+        if (this.resultados) {
+            this.loading = false;
+        }
+    }, 1000);
+}
 
 
 }

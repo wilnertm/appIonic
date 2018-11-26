@@ -1,4 +1,3 @@
-import { HomePage } from './../../pages/home/home';
 import { Component } from '@angular/core';
 import { TestProvider } from '../../providers/test/test';
 import { NavController } from 'ionic-angular';
@@ -9,19 +8,14 @@ import { NavController } from 'ionic-angular';
 })
 export class LoginComponent {
 
-  private HomePage = "HomePage"
   public detail:any={}
   text: string;
 
   constructor(
     private test: TestProvider,
     public navCtrl: NavController, 
-    ) {
-    console.log('Hello LoginComponent Component');
-    this.text = 'Hello World';
-  }
+    ) {}
 
-  // login(email,password){
   login(){
     let email = this.detail.email
     let password = this.detail.password
@@ -33,16 +27,10 @@ export class LoginComponent {
           location.reload()
         }else{
           location.replace("/#/usuario")
-          // this.navCtrl.push("HomePage")
           console.log("Detalle",this.detail);
           
         }
       })
-  }
-
-  prueba(){
-    console.log("Prueba");
-    
   }
 
 }

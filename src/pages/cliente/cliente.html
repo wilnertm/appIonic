@@ -9,7 +9,7 @@
     <ion-grid>
         <ion-row col-12 style="justify-content:center;">
             <ion-col col-12 col-md-9 style="display: flex;justify-content: center">
-                <p-table #tt [value]="resultados" [globalFilterFields]="['nombre','ciudadCliente.nombre','cn','nit','email']">
+                <p-table #tt [value]="resultados" [globalFilterFields]="['nombre','ciudadCliente.nombre','cn','nit','email']" [paginator]="true" [rows]="10" [totalRecords]="totalRecords" [loading]="loading" (onLazyLoad)="loadCarsLazy($event)" [lazy]="true">
                     <ng-template pTemplate="caption">
                         <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
                         <input type="text" pInputText size="50" placeholder="Filtro global" (input)="tt.filterGlobal($event.target.value, 'contains')"
