@@ -20,13 +20,15 @@ export class ClientePage {
   text: string;
   results: string[];
   public detail: any = {};
-  public cols: any[] = [];
+  public scrollableCols : any = [];
   public totalRecords: number;
   public loading: boolean;
   public rows: any;
   count: number;
-  prueba: any [] = []
+  prueba: any[] = []
   nombre = "";
+  frozenCols: any = [];
+  ciudadCliente: any;
 
 
   constructor(
@@ -45,17 +47,27 @@ export class ClientePage {
     this.ngOnInit();
   }
 
-  ngOnInit(){
-    this.cols = [
-      { field: 'Detalle', header: 'Detalle' },
-      { header: 'CN' },
-      { field: 'Nombre', header: 'Nombre' },
-      { header: 'Nit' },
-      { field: 'Emails', header: 'Emails' },
-      { field: 'Telefonos', header: 'Telefonos' },
-      { field: 'Ciudad', header: 'Ciudad' }
+  ngOnInit() {
+
+    this.scrollableCols  = [
+      // { field: 'Detalle', header: 'Detalle' },
+      // { field: 'CN', header: 'CN' },
+      { field: `nombre`, header: 'Nombre' },
+      { field: `nit`, header: 'Nit' },
+      { field: 'correosCliente', header: 'Emails' },
+      { field: 'telefonosCliente', header: 'Telefonos' },
+      { field: 'ciudadCliente', header: 'Ciudad' },
+      { field: 'id_ciudad', header: 'Ciudad' },
+      { field: 'id_ciudad', header: 'Ciudad' },
+      { field: 'id_ciudad', header: 'Ciudad' },
+
     ];
-    
+    this.frozenCols = [
+      { field: 'detalle', header: 'Detalle' },
+      { field: 'cn', header: 'CN' },
+    ];
+
+
   }
 
   encontrar(data) {
@@ -75,12 +87,12 @@ export class ClientePage {
   }
 
   loadCarsLazy(event) {
-    console.log("Lazy",event);
+    console.log("Lazy", event);
     this.loading = true;
-    if(event.globalFilter == null){
+    if (event.globalFilter == null) {
       event.globalFilter = "";
     }
-    this.test.generalPost('/clientes',{
+    this.test.generalPost('/clientes', {
       rango: event.first,
       nombre: event.globalFilter
     })
@@ -88,13 +100,26 @@ export class ClientePage {
         this.resultados = data['rows'];
         console.log("Get", this.resultados);
         this.totalRecords = data['count'];
+        // this.cols = [
+        //   // { field: 'Detalle', header: 'Detalle' },
+        //   // { field: 'CN', header: 'CN' },
+        //   { field: `nombre`, header: 'Nombre' },
+        //   { field: `nit`, header: 'Nit' },
+        //   { field: 'correos', header: 'Emails' },
+        //   { field: 'telefonos', header: 'Telefonos' },
+        //   { field: 'id_ciudad', header: 'Ciudad' },
+        // ];
+        // this.frozenCols = [
+        //   { field: 'detalle', header: 'Detalle' },
+        //   { field: 'cn', header: 'CN' },
+        // ];
       });
     setTimeout(() => {
-        if (this.resultados) {
-            this.loading = false;
-        }
+      if (this.resultados) {
+        this.loading = false;
+      }
     }, 1000);
-}
+  }
 
 
 }

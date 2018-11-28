@@ -1,3 +1,15 @@
 page-cliente {
-
+    p-table{
+        width: 100%;
+    }
+    .telefonos{
+        height: 47px;
+        width:  100%;
+        overflow-y: auto;
+    }
+    .correos{
+        height: 47px;
+        width:  100%;
+        overflow-y: auto;
+    }
 }

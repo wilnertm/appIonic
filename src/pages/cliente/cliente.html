@@ -9,47 +9,55 @@
     <ion-grid>
         <ion-row col-12 style="justify-content:center;">
             <ion-col col-12 col-md-9 style="display: flex;justify-content: center">
-                <p-table #tt [value]="resultados" [globalFilterFields]="['nombre','ciudadCliente.nombre','cn','nit','email']" [paginator]="true" [rows]="10" [totalRecords]="totalRecords" [loading]="loading" (onLazyLoad)="loadCarsLazy($event)" [lazy]="true">
+
+                <p-table #tt [columns]="scrollableCols" [frozenColumns]="frozenCols" [value]="resultados"
+                    [globalFilterFields]="['nombre','ciudadCliente.nombre','cn','nit','email']" [paginator]="true"
+                    [rows]="10" [totalRecords]="totalRecords" [loading]="loading" (onLazyLoad)="loadCarsLazy($event)"
+                    [lazy]="true" [scrollable]="true" frozenWidth="300px">
+
                     <ng-template pTemplate="caption">
                         <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
                         <input type="text" pInputText size="50" placeholder="Filtrar por cn o nombre" (input)="tt.filterGlobal($event.target.value, 'contains')"
                             style="width:auto">
                     </ng-template>
-                    <ng-template pTemplate="header">
+
+                    <ng-template pTemplate="colgroup" let-columns>
+                        <colgroup>
+                            <col *ngFor="let col of columns" style="width:150px">
+                        </colgroup>
+                    </ng-template>
+
+                    <ng-template pTemplate="header" let-columns>
                         <tr>
-                            <th *ngFor="let col of cols">
+                            <th *ngFor="let col of columns">
                                 {{col.header}}
                             </th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-prueba>
+                    <ng-template pTemplate="body" let-rowData let-columns="columns">
                         <tr>
-                            <td>
-                                <a (click)="encontrar(selected=prueba)" style="cursor:pointer;">
-                                    <ion-icon name="eye"></ion-icon>
-                                </a> 
-                            </td>
-                            <td>
-                                {{prueba.cn}}
-                            </td>
-                            <td>
-                                {{prueba.nombre}}
-                            </td>
-                            <td>
-                                {{prueba.nit}}
-                            </td>
-                            <td>
-                                <span *ngFor="let email of prueba.correosCliente">
-                                    {{email.email}}
-                                </span>
-                            </td>
-                            <td>
-                                <span *ngFor="let telefono of prueba.telefonosCliente">
-                                    {{telefono.numero}}
-                                </span>
-                            </td>
-                            <td>
-                                {{prueba.ciudadCliente?.nombre}}
+                            <td *ngFor="let col of columns" style="height: 4.5em !important;">
+                                <div [ngSwitch]="col.field">
+                                    <div *ngSwitchCase="'telefonosCliente'" class="telefonos">
+                                        <div *ngFor="let tel of rowData[col.field]" >
+                                            {{tel.numero}}
+                                        </div>
+                                    </div>
+                                    <div *ngSwitchCase="'detalle'">
+                                        <a (click)="encontrar(selected=rowData)" style="cursor:pointer;">
+                                            <ion-icon name="eye"></ion-icon>
+                                        </a>
+                                    </div>
+                                    <div *ngSwitchCase="'correosCliente'" class="correos" >
+                                        <div *ngFor="let email of rowData[col.field]" >
+                                            {{email.email}}
+                                        </div>
+                                    </div>
+                                    <div *ngSwitchCase="'ciudadCliente'">
+                                        {{rowData.ciudadCliente?.nombre}}
+                                    </div>
+                                    <div *ngSwitchDefault>{{rowData[col.field]}}</div>
+                                </div>
                             </td>
                         </tr>
                     </ng-template>
