@@ -12,7 +12,7 @@
                 <p-table #tt [value]="resultados" [globalFilterFields]="['nombre','ciudadCliente.nombre','cn','nit','email']" [paginator]="true" [rows]="10" [totalRecords]="totalRecords" [loading]="loading" (onLazyLoad)="loadCarsLazy($event)" [lazy]="true">
                     <ng-template pTemplate="caption">
                         <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-                        <input type="text" pInputText size="50" placeholder="Filtro global" (input)="tt.filterGlobal($event.target.value, 'contains')"
+                        <input type="text" pInputText size="50" placeholder="Filtrar por cn o nombre" (input)="tt.filterGlobal($event.target.value, 'contains')"
                             style="width:auto">
                     </ng-template>
                     <ng-template pTemplate="header">

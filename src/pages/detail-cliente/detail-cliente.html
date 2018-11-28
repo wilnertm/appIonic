@@ -1,5 +1,4 @@
 <ion-header>
-
     <ion-navbar>
         <ion-col style="display: flex;justify-content: flex-end;">
             <ion-title>Detalle de Cliente</ion-title>
@@ -8,10 +7,7 @@
             </button>
         </ion-col>
     </ion-navbar>
-
 </ion-header>
-
-
 <ion-content padding>
     <ion-row>
         <ion-col col-12 style="height: 4em;">
@@ -28,14 +24,14 @@
                 </ion-label>
             </ion-item>
             <ion-item>
-                <ion-label>Correos: 
+                <ion-label>Correos:
                     <span *ngFor="let email of resultados.correosCliente">
                         {{email.email}}
                     </span>
                 </ion-label>
             </ion-item>
             <ion-item>
-                <ion-label>Telefonos: 
+                <ion-label>Telefonos:
                     <span *ngFor="let telefono of resultados.telefonosCliente">
                         {{telefono.numero}}
                     </span>
@@ -44,5 +40,35 @@
             <nota [id]="id" [modulo]="nombreModulo"></nota>
         </ion-col>
     </ion-row>
-
+    <ion-card>
+        <ion-card-header>
+            Explore Nearby
+        </ion-card-header>
+        <ion-list>
+            <button ion-item>
+                <ion-icon name="cart" item-start></ion-icon>
+                Shopping
+            </button>
+            <button ion-item>
+                <ion-icon name="medical" item-start></ion-icon>
+                Hospital
+            </button>
+            <button ion-item>
+                <ion-icon name="cafe" item-start></ion-icon>
+                Cafe
+            </button>
+            <button ion-item>
+                <ion-icon name="paw" item-start></ion-icon>
+                Dog Park
+            </button>
+            <button ion-item>
+                <ion-icon name="beer" item-start></ion-icon>
+                Pub
+            </button>
+            <button ion-item>
+                <ion-icon name="planet" item-start></ion-icon>
+                Space
+            </button>
+        </ion-list>
+    </ion-card>
 </ion-content>

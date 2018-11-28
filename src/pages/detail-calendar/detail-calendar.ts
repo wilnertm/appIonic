@@ -127,10 +127,10 @@ export class DetailCalendarPage {
         this.estado.push(this.resultados[i]);
       }
     }
-    console.log("prioridad:",this.prioridad);
-    console.log("tipo actividad:",this.opciones);
-    console.log("tipo:",this.tipo);
-    console.log("Estado:",this.estado);
+    // console.log("prioridad:",this.prioridad);
+    // console.log("tipo actividad:",this.opciones);
+    // console.log("tipo:",this.tipo);
+    // console.log("Estado:",this.estado);
   }
 
   detalle(id) {
