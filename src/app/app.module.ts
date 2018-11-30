@@ -4,6 +4,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { IonicStorageModule } from '@ionic/storage';
 
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
@@ -12,7 +13,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { TestProvider } from '../providers/test/test'; 
+import { TestProvider } from '../providers/test/test';
 import { ComponentsModule } from '../components/components.module';
 import { LoginPage } from '../pages/login/login';
 
@@ -24,7 +25,7 @@ import { LoginPage } from '../pages/login/login';
     ContactPage,
     HomePage,
     TabsPage,
-    LoginPage, 
+    LoginPage,
 
   ],
   imports: [
@@ -32,7 +33,11 @@ import { LoginPage } from '../pages/login/login';
     IonicModule.forRoot(MyApp),
     HttpModule,
     ComponentsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    IonicStorageModule.forRoot({
+      name: '__mydb',
+      driverOrder: ['indexeddb', 'sqlite', 'websql']
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -40,14 +45,14 @@ import { LoginPage } from '../pages/login/login';
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage, 
-    LoginPage  
+    TabsPage,
+    LoginPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     TestProvider
   ]
 })
-export class AppModule {}
+export class AppModule { }

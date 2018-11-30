@@ -1,32 +1,26 @@
 <ion-header>
-
     <ion-navbar>
         <ion-title>Cliente</ion-title>
     </ion-navbar>
-
 </ion-header>
 <ion-content style="align-items:center;">
     <ion-grid>
         <ion-row col-12 style="justify-content:center;">
             <ion-col col-12 col-md-9 style="display: flex;justify-content: center">
-
                 <p-table #tt [columns]="scrollableCols" [frozenColumns]="frozenCols" [value]="resultados"
                     [globalFilterFields]="['nombre','ciudadCliente.nombre','cn','nit','email']" [paginator]="true"
                     [rows]="10" [totalRecords]="totalRecords" [loading]="loading" (onLazyLoad)="loadCarsLazy($event)"
                     [lazy]="true" [scrollable]="true" frozenWidth="300px">
-
                     <ng-template pTemplate="caption">
                         <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
                         <input type="text" pInputText size="50" placeholder="Filtrar por cn o nombre" (input)="tt.filterGlobal($event.target.value, 'contains')"
                             style="width:auto">
                     </ng-template>
-
                     <ng-template pTemplate="colgroup" let-columns>
                         <colgroup>
                             <col *ngFor="let col of columns" style="width:150px">
                         </colgroup>
                     </ng-template>
-
                     <ng-template pTemplate="header" let-columns>
                         <tr>
                             <th *ngFor="let col of columns">
@@ -39,7 +33,7 @@
                             <td *ngFor="let col of columns" style="height: 4.5em !important;">
                                 <div [ngSwitch]="col.field">
                                     <div *ngSwitchCase="'telefonosCliente'" class="telefonos">
-                                        <div *ngFor="let tel of rowData[col.field]" >
+                                        <div *ngFor="let tel of rowData[col.field]">
                                             {{tel.numero}}
                                         </div>
                                     </div>
@@ -48,8 +42,8 @@
                                             <ion-icon name="eye"></ion-icon>
                                         </a>
                                     </div>
-                                    <div *ngSwitchCase="'correosCliente'" class="correos" >
-                                        <div *ngFor="let email of rowData[col.field]" >
+                                    <div *ngSwitchCase="'correosCliente'" class="correos">
+                                        <div *ngFor="let email of rowData[col.field]">
                                             {{email.email}}
                                         </div>
                                     </div>
