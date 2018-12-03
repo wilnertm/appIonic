@@ -39,6 +39,7 @@ export class UsuariosComponent {
   ) { }
 
   ngOnInit(): void {
+    this.test.getStorage();
     this.test.generalGet(`/usuario`)
       .then(data => {
         this.usuarios = data;

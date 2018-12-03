@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { TestProvider } from '../../providers/test/test';
 
 @IonicPage({
   name: "usuario"
@@ -15,7 +16,7 @@ export class UsuarioPage {
   departamentoPage = "departamento"
   clientePage = "cliente"
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private test: TestProvider) {
   }
 
   ionViewDidLoad() {
@@ -47,6 +48,10 @@ export class UsuarioPage {
       default:
         break;
     }
+  }
+
+  logout(){
+    this.test.destroyStorage();
   }
 
 

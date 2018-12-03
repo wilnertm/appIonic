@@ -50,8 +50,6 @@ export class ClientePage {
   ngOnInit() {
 
     this.scrollableCols  = [
-      // { field: 'Detalle', header: 'Detalle' },
-      // { field: 'CN', header: 'CN' },
       { field: `nombre`, header: 'Nombre' },
       { field: `nit`, header: 'Nit' },
       { field: 'correosCliente', header: 'Emails' },
@@ -60,21 +58,16 @@ export class ClientePage {
       { field: 'id_ciudad', header: 'Ciudad' },
       { field: 'id_ciudad', header: 'Ciudad' },
       { field: 'id_ciudad', header: 'Ciudad' },
-
     ];
     this.frozenCols = [
       { field: 'detalle', header: 'Detalle' },
       { field: 'cn', header: 'CN' },
     ];
-
-
   }
 
   encontrar(data) {
     let modal = this.modal.create("detail-cliente", { data: this.selected })
     modal.present();
-    // console.log("Datos",data);
-
   }
 
   filterGlobal(event) {
@@ -95,25 +88,14 @@ export class ClientePage {
     this.test.generalPost('/clientes', {
       rango: event.first,
       nombre: event.globalFilter
+      // rango: 0,
+      // nombre: ""
     })
       .then(data => {
         this.resultados = data['rows'];
-        console.log("Get", this.resultados);
+        console.log("Get", data);
         this.totalRecords = data['count'];
-        // this.cols = [
-        //   // { field: 'Detalle', header: 'Detalle' },
-        //   // { field: 'CN', header: 'CN' },
-        //   { field: `nombre`, header: 'Nombre' },
-        //   { field: `nit`, header: 'Nit' },
-        //   { field: 'correos', header: 'Emails' },
-        //   { field: 'telefonos', header: 'Telefonos' },
-        //   { field: 'id_ciudad', header: 'Ciudad' },
-        // ];
-        // this.frozenCols = [
-        //   { field: 'detalle', header: 'Detalle' },
-        //   { field: 'cn', header: 'CN' },
-        // ];
-      });
+      })
     setTimeout(() => {
       if (this.resultados) {
         this.loading = false;

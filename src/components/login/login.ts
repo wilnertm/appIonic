@@ -18,19 +18,12 @@ export class LoginComponent {
   ) { }
 
   login() {
-    // let email = this.detail.email
-    // let password = this.detail.password
     this.test.login(`/login`, this.detail)
       .then(data => {
         this.detail = data;
         console.log("Token", this.detail.token);
         this.test.setStorage(this.detail.token);
-
-        // this.storage.set(this.key,this.detail.token)
-        // this.storage.get(this.key).then((val) => {
-        //   console.log('Your token is', val);
-        // });
-
+        localStorage.setItem("token", this.detail.token)
         if (this.detail.status == 404) {
           alert("Usuario y/o contraseña incorrectos")
           location.reload()
@@ -44,16 +37,5 @@ export class LoginComponent {
       })
   }
 
-  // setStorage() {
-  //   // set a key/value
-  //   this.storage.set(this.key,this.entrada);
-  //   this.getStorage();
-  // }
-  // getStorage() {
-  //   // Or to get a key/value pair
-  //   this.storage.get(this.key).then((val) => {
-  //     console.log('Your token is', val);
-  //   });
-  // }
 
 }

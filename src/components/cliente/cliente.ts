@@ -42,10 +42,10 @@ export class ClienteComponent {
       .then(data => {
         this.ciudades = data;
       })
-    this.test.generalGet('/cliente')
-      .then(data => {
-        this.clientes = data;
-      })
+    // this.test.generalGet('/cliente')
+    //   .then(data => {
+    //     this.clientes = data;
+    //   })
   }
 
   crear(crearCliente: NgForm) {

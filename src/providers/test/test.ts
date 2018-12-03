@@ -2,8 +2,7 @@ import { Headers, Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { map } from "rxjs/operators";
 import { Storage } from '@ionic/storage';
-import { Header } from 'ionic-angular';
-import { jsonpFactory } from '@angular/http/src/http_module';
+
 
 
 @Injectable()
@@ -14,15 +13,25 @@ export class TestProvider {
     private storage: Storage,
   ) { }
 
-  private token: any="";
-  headers: any = {};
-  // headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json','Authorization':'Bearer '+this.token });
+  private token: any = "";
+  private getToken: any = "";
+  private headers: any = {};
   value: string;
   key: string = "token";
-  private islogged = false;
+  private islogged: boolean;
   public data: any = [] = [];
   private baseUrl = "http://localhost:3000/api";
 
+
+ngOnInit(): void {
+  let prueba = localStorage.getItem("logueado");
+  if(prueba == "true"){
+    this.islogged = true;
+  }else{
+    this.islogged = false;
+  }
+  
+}
   setStorage(value) {
     // guardar una llave y un valor key/value
     this.storage.set(this.key, value);
@@ -31,15 +40,27 @@ export class TestProvider {
   getStorage() {
     // Obtener el token desde el storage
     this.storage.get(this.key).then((val) => {
-      // console.log('Your token is', val);
       this.token = val;
       console.log("VaToken", this.token);
-      this.headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json', 'Authorization': 'Bearer ' + this.token });
     });
+    return this.token;
+  }
+
+  getHeaders() {
+    this.getToken = localStorage.getItem("token");
+    this.headers = new Headers({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': `Bearer  ${this.getToken}`
+    });
+    return this.headers;
   }
 
   destroyStorage() {
+    this.islogged = false;
     this.storage.clear();
+    localStorage.clear();
+    location.replace('/#/')
   }
 
   getData() {
@@ -51,6 +72,8 @@ export class TestProvider {
       .then(response => {
         let response2 = response.json();
         this.islogged = true;
+        console.log("Logueado", this.islogged)
+        localStorage.setItem("logueado:", this.islogged +"")
         this.token = response2['token']
         console.log("Respuesta de login en ts", this.token)
         return response.json() as any[]
@@ -61,18 +84,10 @@ export class TestProvider {
   }
 
   generalGet(url, data = {}): Promise<any[]> {
-    // if (!this.islogged) {
-    //   return;
-    // }
-    console.log("Token en get", this.token)
-    // this.headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json', 'Authorization': 'Bearer ' + this.token });
-    // data['headers'] = this.headers;
-    console.log("Headers en get", this.getHeaders());
-    let headers = new Headers({ 
-      'Content-Type': 'application/x-www-form-urlencoded', 
-      'Accept': 'application/json','Authorization':'Bearer '+this.token 
-    });
-    return this.http.get(`${this.baseUrl}${url}`, { headers: headers, params: data }).toPromise()
+    if (this.islogged == false) {
+      this.redirect();
+    }
+    return this.http.get(`${this.baseUrl}${url}`, { headers: this.getHeaders(), params: data }).toPromise()
       .then(response => {
         let response2 = response.json();
         this.token = response2['token']
@@ -85,17 +100,10 @@ export class TestProvider {
   }
 
   generalPost(url, data = {}): Promise<any[]> {
-    let headers = new Headers({ 
-      'Content-Type': 'application/x-www-form-urlencoded', 
-      'Accept': 'application/json','Authorization':'Bearer '+this.token 
-    });
-    // if (!this.islogged) {
-    //   return;
-    // }
-    // data["token"]=this.token;
-    // this.headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json', 'Authorization': 'Bearer ' + this.token });
-    console.log("Headers en post", this.getHeaders());
-    return this.http.post(`${this.baseUrl}${url}`, data, {headers: headers }).toPromise()
+    if (!this.islogged) {
+      this.redirect();
+    }
+    return this.http.post(`${this.baseUrl}${url}`, data, { headers: this.getHeaders() }).toPromise()
       .then(response => {
         let response2 = response.json();
         this.token = response2['token']
@@ -111,9 +119,9 @@ export class TestProvider {
 
 
   generalPut(url, data = {}): Promise<any[]> {
-    // if (!this.islogged) {
-    //   return;
-    // }
+    if (!this.islogged) {
+      this.redirect();
+    }
     return this.http.put(`${this.baseUrl}${url}`, data, { headers: this.headers }).toPromise()
       .then(response => {
         return response.json() as any[]
@@ -123,18 +131,12 @@ export class TestProvider {
       })
   }
 
-  getHeaders() {
-    let headers = new Headers({ 
-      'Content-Type': 'application/x-www-form-urlencoded', 
-      'Accept': 'application/json','Authorization':'Bearer '+this.token 
-    });
-    return headers;
-  }
+
 
   generalDelete(url, data = {}): Promise<any[]> {
-    // if (!this.islogged) {
-    //   return;
-    // }
+    if (!this.islogged) {
+      this.redirect();
+    }
     return this.http.delete(`${this.baseUrl}${url}`, { params: data }).toPromise()
       .then(response => {
         return response.json() as any[]
@@ -142,5 +144,9 @@ export class TestProvider {
       .catch(error => {
         return error
       })
+  }
+
+  redirect(){
+    location.replace('/#/');
   }
 }
