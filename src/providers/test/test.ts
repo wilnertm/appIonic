@@ -23,15 +23,7 @@ export class TestProvider {
   private baseUrl = "http://localhost:3000/api";
 
 
-ngOnInit(): void {
-  let prueba = localStorage.getItem("logueado");
-  if(prueba == "true"){
-    this.islogged = true;
-  }else{
-    this.islogged = false;
-  }
-  
-}
+
   setStorage(value) {
     // guardar una llave y un valor key/value
     this.storage.set(this.key, value);
@@ -41,7 +33,7 @@ ngOnInit(): void {
     // Obtener el token desde el storage
     this.storage.get(this.key).then((val) => {
       this.token = val;
-      console.log("VaToken", this.token);
+      // console.log("VaToken", this.token);
     });
     return this.token;
   }
@@ -70,12 +62,13 @@ ngOnInit(): void {
   login(url, data = {}): Promise<any[]> {
     return this.http.post(`${this.baseUrl}${url}`, data).toPromise()
       .then(response => {
+        console.log("DatLoginService", response);
         let response2 = response.json();
         this.islogged = true;
-        console.log("Logueado", this.islogged)
-        localStorage.setItem("logueado:", this.islogged +"")
+        // console.log("Logueado", this.islogged)
+        localStorage.setItem("logueado", this.islogged +"")
         this.token = response2['token']
-        console.log("Respuesta de login en ts", this.token)
+        // console.log("Respuesta de login en ts", this.token)
         return response.json() as any[]
       })
       .catch(error => {
@@ -84,14 +77,15 @@ ngOnInit(): void {
   }
 
   generalGet(url, data = {}): Promise<any[]> {
-    if (this.islogged == false) {
+    this.logueo();
+    // console.log("Logueado? ",this.islogged)
+    if (!this.islogged) {
       this.redirect();
     }
     return this.http.get(`${this.baseUrl}${url}`, { headers: this.getHeaders(), params: data }).toPromise()
       .then(response => {
         let response2 = response.json();
         this.token = response2['token']
-        console.log("GetGeneralInfo", response)
         return response.json() as any[]
       })
       .catch(error => {
@@ -100,6 +94,8 @@ ngOnInit(): void {
   }
 
   generalPost(url, data = {}): Promise<any[]> {
+    this.logueo();
+    // console.log("Logueado? ",this.islogged)
     if (!this.islogged) {
       this.redirect();
     }
@@ -114,11 +110,12 @@ ngOnInit(): void {
       .catch(error => {
         return error;
       })
-
   }
 
 
   generalPut(url, data = {}): Promise<any[]> {
+    this.logueo();
+    // console.log("Logueado? ",this.islogged)
     if (!this.islogged) {
       this.redirect();
     }
@@ -134,6 +131,8 @@ ngOnInit(): void {
 
 
   generalDelete(url, data = {}): Promise<any[]> {
+    this.logueo();
+    // console.log("Logueado? ",this.islogged)
     if (!this.islogged) {
       this.redirect();
     }
@@ -148,5 +147,16 @@ ngOnInit(): void {
 
   redirect(){
     location.replace('/#/');
+  }
+
+  logueo(){
+    let prueba = localStorage.getItem("logueado");
+    if(prueba == "true"){
+      this.islogged = true;
+    }else{
+      this.islogged = false;
+    }
+    console.log("Logueado",this.islogged)
+    
   }
 }

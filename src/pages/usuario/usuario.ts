@@ -15,12 +15,19 @@ export class UsuarioPage {
   ciudadPage = "ciudad"
   departamentoPage = "departamento"
   clientePage = "cliente"
+  public nombreUsuario: any = "";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private test: TestProvider) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    private test: TestProvider) {
+  }
+
+  ngOnInit(): void {
+    this.nombreUsuario =localStorage.getItem("nombreCompleto");
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad UsuarioPage');
   }
 
   goto(page){
