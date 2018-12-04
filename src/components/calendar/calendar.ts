@@ -71,12 +71,25 @@ export class CalendarComponent {
         private modal: ModalController,
     ) { }
     ngOnInit() {
+        let rol = localStorage.getItem("rol");
+        if(rol == 'Administrador'){
         this.test.generalGet(`/actividad`)
             .then(data => {
                 this.events = data;
                 console.log("Actividades", this.events);
                 //Igualando los datos del get a los eventos del calendario
             })
+        }
+        if(rol == 'Usuario'){
+            this.test.generalPost(`/actividad_usuario`,{
+                creadoPor: parseInt(localStorage.getItem("usuario"))
+            })
+                .then(data => {
+                    this.events = data;
+                    console.log("Actividades", this.events);
+                    //Igualando los datos del get a los eventos del calendario
+                })
+            }
     }
     crear(date) {
         console.log("creando");
@@ -100,7 +113,7 @@ export class CalendarComponent {
         modal.present();
     }
     actualizar(id, event) {
-        this.test.generalPut(`/actividad/${id}`, { fechaInicio: event.start, fechaFin: event.end })
+        this.test.generalPut(`/actividad/${id}`, { fechaInicio: event.start, fechaFin: event.end, actualizadoPor: parseInt(localStorage.getItem("usuario")) })
             .then(data => {
                 this.resultados = data;
                 console.log("Actualizando", this.resultados);

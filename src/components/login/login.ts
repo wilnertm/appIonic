@@ -26,7 +26,8 @@ export class LoginComponent {
         this.test.setStorage(this.detail.token);
         localStorage.setItem("token", this.detail.token);
         localStorage.setItem("usuario", this.detail.identificador);
-        localStorage.setItem("nombreCompleto", this.detail.nombres)
+        localStorage.setItem("nombreCompleto", this.detail.nombres);
+        localStorage.setItem("rol", this.detail.rol.descripcion);
         if (this.detail.status == 404) {
           alert("Usuario y/o contraseña incorrectos")
           location.reload()

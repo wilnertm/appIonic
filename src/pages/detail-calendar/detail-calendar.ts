@@ -127,10 +127,6 @@ export class DetailCalendarPage {
         this.estado.push(this.resultados[i]);
       }
     }
-    // console.log("prioridad:",this.prioridad);
-    // console.log("tipo actividad:",this.opciones);
-    // console.log("tipo:",this.tipo);
-    // console.log("Estado:",this.estado);
   }
 
   detalle(id) {
@@ -155,6 +151,7 @@ export class DetailCalendarPage {
       fechaFin:moment(this.fechaFin).add(5, 'h').format(),
       asunto: this.resultados.asunto,
       idCliente: this.idCliente,
+      actualizadoPor: parseInt(localStorage.getItem("usuario"))
     })
       .then(data => {
         this.detail = data;
@@ -177,7 +174,8 @@ export class DetailCalendarPage {
       prioridad: this.prioridades,
       estado_actividad: this.estados,
       idCliente: this.idCliente,
-      usuario: this.usuarios
+      usuario: this.usuarios,
+      creadoPor: parseInt(localStorage.getItem("usuario"))
   })
       .then(data =>{
         this.resultados = data;
