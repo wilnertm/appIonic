@@ -35,12 +35,13 @@ export class LoginComponent {
         else{
           console.log("Detalle De Autenticación", this.detail)
           console.log("Token", this.detail.token);
-          console.log("STATUS", this.detail.status);
           this.test.setStorage(this.detail.token);
-          this.test.setRol(this.detail.rol.descripcion)
+          this.test.setRol(this.detail.rol.descripcion);
+          this.test.setUsuario(this.detail.identificador);
+          this.test.setName(this.detail.nombres);
           localStorage.setItem("token", this.detail.token);
-          localStorage.setItem("usuario", this.detail.identificador);
-          localStorage.setItem("nombreCompleto", this.detail.nombres);
+          // localStorage.setItem("usuario", this.detail.identificador);
+          // localStorage.setItem("nombreCompleto", this.detail.nombres);
           sessionStorage.setItem("rol", this.detail.rol.descripcion);
           location.replace("/#/usuario")
           console.log("Detalle", this.detail);

@@ -1,3 +1,4 @@
+import { Storage } from '@ionic/storage';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { TestProvider } from '../../providers/test/test';
@@ -20,11 +21,15 @@ export class UsuarioPage {
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
-    private test: TestProvider) {
-  }
+    private test: TestProvider,
+    private storage: Storage
+    ) {}
 
   ngOnInit(): void {
-    this.nombreUsuario =localStorage.getItem("nombreCompleto");
+    this.storage.get('nombreUsuario').then( (val) =>{
+      this.nombreUsuario = val;
+    });
+    // this.nombreUsuario =localStorage.getItem("nombreCompleto");
   }
 
   ionViewDidLoad() {

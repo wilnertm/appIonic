@@ -36,7 +36,7 @@ import { LoginPage } from '../pages/login/login';
     ComponentsModule,
     BrowserAnimationsModule,
     IonicStorageModule.forRoot({
-      name: '__mydb',
+      name: 'pruebaApp',
       driverOrder: ['indexeddb', 'sqlite', 'websql']
     })
   ],

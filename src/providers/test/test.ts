@@ -14,23 +14,29 @@ export class TestProvider {
   ) { }
 
   private token: any = "";
-  public rolExport: any = "";
   private getToken: any = "";
   private headers: any = {};
   value: string;
   key: string = "token";
-  rol: string = "rol";
+  // rol: string = "rol";
+  // usuario: string = "usuario"
   private islogged: boolean;
   public data: any = [] = [];
   private baseUrl = "http://localhost:3000/api";
 
 
   setRol(value) {
-    this.storage.set(this.rol, value)
+    this.storage.set('rol', value)
+  }
+  setName(value){
+    this.storage.set('nombreUsuario', value)
+  }
+  setUsuario(value) {
+    this.storage.set('usuario', value)
   }
   setStorage(value) {
     // guardar una llave y un valor key/value
-    this.storage.set(this.key, value);
+    this.storage.set('token', value);
     // this.getStorage();
   }
   getStorage() {
@@ -41,13 +47,7 @@ export class TestProvider {
     return this.token;
   }
 
-  getrol(value) {
-    // Obtener el rol desde el storage
-    this.storage.get(value).then((val) => {
-      this.rolExport = val;
-    });
-    return this.rolExport;
-  }
+
 
   getHeaders() {
     this.getToken = localStorage.getItem("token");
@@ -76,10 +76,8 @@ export class TestProvider {
         console.log("DatLoginService", response);
         let response2 = response.json();
         this.islogged = true;
-        // console.log("Logueado", this.islogged)
         localStorage.setItem("logueado", this.islogged + "")
         this.token = response2['token']
-        // console.log("Respuesta de login en ts", this.token)
         return response.json() as any[]
       })
       .catch(error => {
@@ -89,8 +87,7 @@ export class TestProvider {
 
   generalGet(url, data = {}): Promise<any[]> {
     this.logueo();
-    // console.log("Logueado? ",this.islogged)
-    if (!this.islogged) {
+    if (this.islogged == false) {
       this.redirect();
     }
     return this.http.get(`${this.baseUrl}${url}`, { headers: this.getHeaders(), params: data }).toPromise()
@@ -106,7 +103,6 @@ export class TestProvider {
 
   generalPost(url, data = {}): Promise<any[]> {
     this.logueo();
-    // console.log("Logueado? ",this.islogged)
     if (!this.islogged) {
       this.redirect();
     }
@@ -126,7 +122,6 @@ export class TestProvider {
 
   generalPut(url, data = {}): Promise<any[]> {
     this.logueo();
-    // console.log("Logueado? ",this.islogged)
     if (!this.islogged) {
       this.redirect();
     }
@@ -143,7 +138,6 @@ export class TestProvider {
 
   generalDelete(url, data = {}): Promise<any[]> {
     this.logueo();
-    // console.log("Logueado? ",this.islogged)
     if (!this.islogged) {
       this.redirect();
     }
@@ -168,6 +162,5 @@ export class TestProvider {
       this.islogged = false;
     }
     console.log("Logueado", this.islogged)
-
   }
 }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { TestProvider } from '../../providers/test/test';
 import { ModalController } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 
 @Component({
     selector: 'calendar',
@@ -9,7 +10,6 @@ import { ModalController } from 'ionic-angular';
 export class CalendarComponent {
 
     //Declaración de variables
-    rolImport: any = "rol";
     text: string;
     events: any[]
     public detail: any = {}
@@ -70,28 +70,43 @@ export class CalendarComponent {
     constructor(
         private test: TestProvider,
         private modal: ModalController,
+        private storage: Storage
     ) { }
     ngOnInit() {
-        console.log("Prueba Rol",this.test.getrol(this.rolImport))
-        let rol = sessionStorage.getItem("rol");
-        if (rol == 'Administrador') {
-            this.test.generalGet(`/actividad`)
-                .then(data => {
-                    this.events = data;
-                    console.log("Actividades", this.events);
-                    //Igualando los datos del get a los eventos del calendario
+        this.storage.get('rol').then((val) => {
+            let rol = val;
+            console.log("ROL: ", rol)
+            if (rol == undefined || rol == null) {
+                this.test.generalGet(`/actividad`)
+                    .then(data => {
+                        this.events = data;
+                        console.log("Actividades", this.events);
+                        //Igualando los datos del get a los eventos del calendario
+                    })
+            }
+            if (rol == 'Administrador') {
+                this.test.generalGet(`/actividad`)
+                    .then(data => {
+                        this.events = data;
+                        console.log("Actividades", this.events);
+                        //Igualando los datos del get a los eventos del calendario
+                    })
+            }
+            if (rol == 'Usuario') {
+                this.storage.get('usuario').then((val) =>{
+                    let usuario = parseInt(val);
+                this.test.generalPost(`/actividad_usuario`, {
+                    // creadoPor: parseInt(localStorage.getItem("usuario"))
+                    creadoPor: usuario
                 })
-        }
-        if (rol == 'Usuario') {
-            this.test.generalPost(`/actividad_usuario`, {
-                creadoPor: parseInt(localStorage.getItem("usuario"))
-            })
-                .then(data => {
-                    this.events = data;
-                    console.log("Actividades", this.events);
-                    //Igualando los datos del get a los eventos del calendario
+                    .then(data => {
+                        this.events = data;
+                        console.log("Actividades", this.events);
+                        //Igualando los datos del get a los eventos del calendario
+                    })
                 })
-        }
+            }
+        });
     }
     crear(date) {
         console.log("creando");
@@ -121,4 +136,5 @@ export class CalendarComponent {
                 console.log("Actualizando", this.resultados);
             })
     }
+
 }
