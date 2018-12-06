@@ -3,10 +3,10 @@ import { DepartamentosComponent } from './departamentos/departamentos';
 import { CiudadesComponent } from './ciudades/ciudades';
 import { UsuariosComponent } from './usuarios/usuarios';
 import { NavbarComponent } from './navbar/navbar';
-import { FooterComponent } from './footer/footer'; 
+import { FooterComponent } from './footer/footer';
 import { IonicModule } from 'ionic-angular';
 import { FormsModule } from '@angular/forms';
-import {FullCalendarModule} from 'primeng/fullcalendar';
+import { FullCalendarModule } from 'primeng/fullcalendar';
 import { SearchPipe } from '../pipes/search/search';
 import { SortPipe } from '../pipes/sort/sort';
 import { LoginComponent } from './login/login';
@@ -15,7 +15,7 @@ import { NotaComponent } from './nota/nota';
 import { TelefonoComponent } from './telefono/telefono';
 import { CorreoComponent } from './correo/correo';
 import { ClienteComponent } from './cliente/cliente';
-import {AutoCompleteModule} from 'primeng/autocomplete';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 
 @NgModule({
     declarations: [
@@ -28,15 +28,15 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
         SortPipe,
         LoginComponent,
         CalendarComponent,
-    NotaComponent,
-    TelefonoComponent,
-    CorreoComponent,
-    ClienteComponent],
+        NotaComponent,
+        TelefonoComponent,
+        CorreoComponent,
+        ClienteComponent],
     imports: [
         IonicModule,
         FormsModule,
         FullCalendarModule,
-        AutoCompleteModule
+        AutoCompleteModule,
     ],
     exports: [
         DepartamentosComponent,
@@ -48,9 +48,9 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
         SortPipe,
         LoginComponent,
         CalendarComponent,
-    NotaComponent,
-    TelefonoComponent,
-    CorreoComponent,
-    ClienteComponent]
+        NotaComponent,
+        TelefonoComponent,
+        CorreoComponent,
+        ClienteComponent]
 })
 export class ComponentsModule { }

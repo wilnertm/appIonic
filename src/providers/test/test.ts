@@ -14,16 +14,20 @@ export class TestProvider {
   ) { }
 
   private token: any = "";
+  public rolExport: any = "";
   private getToken: any = "";
   private headers: any = {};
   value: string;
   key: string = "token";
+  rol: string = "rol";
   private islogged: boolean;
   public data: any = [] = [];
   private baseUrl = "http://localhost:3000/api";
 
 
-
+  setRol(value) {
+    this.storage.set(this.rol, value)
+  }
   setStorage(value) {
     // guardar una llave y un valor key/value
     this.storage.set(this.key, value);
@@ -33,9 +37,16 @@ export class TestProvider {
     // Obtener el token desde el storage
     this.storage.get(this.key).then((val) => {
       this.token = val;
-      // console.log("VaToken", this.token);
     });
     return this.token;
+  }
+
+  getrol(value) {
+    // Obtener el rol desde el storage
+    this.storage.get(value).then((val) => {
+      this.rolExport = val;
+    });
+    return this.rolExport;
   }
 
   getHeaders() {
@@ -66,7 +77,7 @@ export class TestProvider {
         let response2 = response.json();
         this.islogged = true;
         // console.log("Logueado", this.islogged)
-        localStorage.setItem("logueado", this.islogged +"")
+        localStorage.setItem("logueado", this.islogged + "")
         this.token = response2['token']
         // console.log("Respuesta de login en ts", this.token)
         return response.json() as any[]
@@ -145,18 +156,18 @@ export class TestProvider {
       })
   }
 
-  redirect(){
+  redirect() {
     location.replace('/#/');
   }
 
-  logueo(){
+  logueo() {
     let prueba = localStorage.getItem("logueado");
-    if(prueba == "true"){
+    if (prueba == "true") {
       this.islogged = true;
-    }else{
+    } else {
       this.islogged = false;
     }
-    console.log("Logueado",this.islogged)
-    
+    console.log("Logueado", this.islogged)
+
   }
 }
