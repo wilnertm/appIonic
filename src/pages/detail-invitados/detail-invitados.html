@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Invitaciones</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-col col-12 *ngIf="resultados">
+    <ion-col *ngFor="let u of resultados" col-6>
+      <ion-card >
+        <div class="card-title" style="padding-left: 1em;font-weight: bold;margin-bottom: 1em;">
+          {{u.asunto}}
+        </div>
+        <div class="card-subtitle" style="padding-left: 1em;">
+          {{u.id}}
+        </div>
+        <ion-card-content>
+          {{u.descripcion}}
+          <ion-item style="text-align: end;">
+            <ion-label style="font-size: 14px;font-weight: bold;">
+              Aceptar Actividad
+            </ion-label>
+            <ion-toggle [(ngModel)]="u.acepto" (ionChange)="prueba(u.id)" disabled="false"></ion-toggle>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-col>
+  <ion-col col-12 *ngIf="!resultados">
+    <p>No Tienes Invitaciones</p>
+  </ion-col>
+</ion-content>

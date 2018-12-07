@@ -15,6 +15,8 @@ export class CalendarComponent {
     public detail: any = {}
     public objeto: any = {}
     resultados: any = {}
+    resConteo: any = {}
+    numConteo: any ;
     // Configuración de las opciones del calendar
     options: any = {
         editable: true,
@@ -46,7 +48,16 @@ export class CalendarComponent {
         },
         //encabezado del calendario
         header: {
-            center: 'mes,semana,dia', // botones para cambiar la vista
+            center: 'mes,semana,dia,notificacion', // botones para cambiar la vista
+        },
+        //Botones personalizados
+        customButtons: {
+            notificacion: {
+                text: 'custom!',
+                click: function () {
+                    console.log("Click");
+                }
+            }
         },
         //funcionalidad de los botones de vista en calendario
         views: {
@@ -93,20 +104,45 @@ export class CalendarComponent {
                     })
             }
             if (rol == 'Usuario') {
-                this.storage.get('usuario').then((val) =>{
+                this.storage.get('usuario').then((val) => {
                     let usuario = parseInt(val);
-                this.test.generalPost(`/actividad_usuario`, {
-                    // creadoPor: parseInt(localStorage.getItem("usuario"))
-                    creadoPor: usuario
-                })
-                    .then(data => {
-                        this.events = data;
-                        console.log("Actividades", this.events);
-                        //Igualando los datos del get a los eventos del calendario
+                    this.test.generalPost(`/actividad_usuario`, {
+                        // creadoPor: parseInt(localStorage.getItem("usuario"))
+                        creadoPor: usuario
                     })
+                        .then(data => {
+                            this.events = data;
+                            console.log("Actividades", this.events);
+                            this.conteo();
+                            //Igualando los datos del get a los eventos del calendario
+                        })
                 })
             }
         });
+    }
+    conteo() {
+        this.storage.get('usuario').then((val) => {
+            let usuario = parseInt(val)
+            this.test.generalPost('/conteo_actividad', {
+                creadoPor: usuario
+            })
+                .then(data => {
+                    this.resConteo = data;
+                    this.numConteo = this.resConteo[0].count;
+                    console.log("Notificaciones", this.numConteo)
+                })
+        })
+    }
+    invitados() {
+        console.log("creando");
+        let modal = this.modal.create("detail-invitados")
+        //modal.onDismiss ejecucion de código despues de cerrar el modal
+        modal.onDidDismiss(data => {
+            // location.reload()
+            this.ngOnInit();
+            console.log(data);
+        });
+        modal.present();
     }
     crear(date) {
         console.log("creando");
@@ -130,11 +166,16 @@ export class CalendarComponent {
         modal.present();
     }
     actualizar(id, event) {
-        this.test.generalPut(`/actividad/${id}`, { fechaInicio: event.start, fechaFin: event.end, actualizadoPor: parseInt(localStorage.getItem("usuario")) })
-            .then(data => {
-                this.resultados = data;
-                console.log("Actualizando", this.resultados);
+        this.storage.get('usuario').then((val) => {
+            this.test.generalPut(`/actividad/${id}`, {
+                fechaInicio: event.start,
+                fechaFin: event.end,
+                actualizadoPor: parseInt(val)
             })
+                .then(data => {
+                    this.resultados = data;
+                    console.log("Actualizando", this.resultados);
+                })
+        })
     }
-
 }

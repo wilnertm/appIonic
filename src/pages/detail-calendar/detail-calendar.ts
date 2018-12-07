@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams} from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { TestProvider } from '../../providers/test/test';
 import * as moment from 'moment'
 import { NgForm } from '@angular/forms';
+import { Storage } from '@ionic/storage';
 
 
 @IonicPage({
@@ -13,26 +14,27 @@ import { NgForm } from '@angular/forms';
   templateUrl: 'detail-calendar.html',
 })
 export class DetailCalendarPage {
-  title:any  = "Crear Actividad"
+  title: any = "Crear Actividad"
   details: any = {}
   detail: any = {}
   resultados: any = {}
   actividad: any = {}
   public usuario: any = {}
-  public usuarios: any [] = []
-  public opciones: any []=[];
+  public usuarios: any[] = []
+  public opciones: any[] = [];
   public fechaInicial: Date;
   public fechaInicio: Date;
-  public tipoActividad:any;
+  public tipoActividad: any;
   public fechaFin: Date;
-  public idCliente: any; 
-  public asunto:string;
+  public idCliente: any;
+  public asunto: string;
+  public descripcion: string;
   public estados: any;
   public prioridades: any;
-  public prioridad:any []=[];
+  public prioridad: any[] = [];
   public tipos: any;
-  public tipo:any []=[];
-  public estado:any []=[];
+  public tipo: any[] = [];
+  public estado: any[] = [];
   public agrgarNota: false;
   public agregarCliente: false;
   public agregarUsuario: false;
@@ -44,7 +46,9 @@ export class DetailCalendarPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private test: TestProvider) { }
+    private test: TestProvider,
+    private storage: Storage
+  ) { }
 
   ionViewDidLoad() {
     if (this.navParams.get('data')) {
@@ -54,7 +58,7 @@ export class DetailCalendarPage {
       //funcion para encontrar el objeto al que pertenece el id
       this.detalle(this.detail);
     }
-    else{
+    else {
       this.fechaInicial = this.navParams.get('event')
       //Cuando el objeto viene sin id se setea por defecto la fecha seleccionada en el calendario
     }
@@ -62,68 +66,70 @@ export class DetailCalendarPage {
 
   ngOnInit(): void {
     this.test.generalGet(`/opcion`)
-      .then( data =>{
+      .then(data => {
         this.resultados = data;
         console.log("Resultados", this.resultados);
         this.categorizar();
       })
-    
+
   }
-  select(event){
-    console.log("Seleccionado",event);
+  select(event) {
+    console.log("Seleccionado", event);
     this.idCliente = event.id;
   }
 
   search(event) {
-      this.test.generalPost('/findCliente', {
-        nombre:this.text,
-        cn:this.text})
+    this.test.generalPost('/findCliente', {
+      nombre: this.text,
+      cn: this.text
+    })
       .then(data => {
-          this.results = data;
-          console.log("Autocomplete",this.results);
-          // this.results= this.detail.nombres;
+        this.results = data;
+        console.log("Autocomplete", this.results);
+        // this.results= this.detail.nombres;
       });
   }
 
-  Multiselect(event){
+  Multiselect(event) {
     this.usuario = event;
-    console.log("Seleccionado",this.usuario);
-    
+    console.log("Seleccionado", this.usuario);
+
   }
 
-  addMulti(){
+  addMulti() {
     this.usuarios.push(this.usuario);
-    console.log(this.usuarios,"ArregloAdd");
+    console.log(this.usuarios, "ArregloAdd");
     this.texto = null;
   }
 
-  dropMulti(usuario){
-    this.usuarios.splice(this.usuario,1);
-    console.log(this.usuarios,"ArregloDrop");
+  dropMulti(usuario) {
+    this.usuarios.splice(this.usuario, 1);
+    console.log(this.usuarios, "ArregloDrop");
   }
 
   Multisearch(event) {
-      this.test.generalPost('/findusuario', {
-        nombres:this.texto,
-        cn: this.texto})
+    this.test.generalPost('/findusuario', {
+      nombres: this.texto,
+      cn: this.texto
+    })
       .then(data => {
-          this.results = data;
-          console.log("Autocomplete",this.results);
+        this.results = data;
+        console.log("Autocomplete", this.results);
       });
   }
 
-  categorizar(){       
-    for(let i = 0; i < this.resultados.length;i++){
-      if(this.resultados[i].categoria == 3){
+  categorizar() {
+    for (let i = 0; i < this.resultados.length; i++) {
+      if (this.resultados[i].categoria == 3) {
         this.prioridad.push(this.resultados[i]);
       }
-      if(this.resultados[i].categoria == 1){
+      if (this.resultados[i].categoria == 1) {
         this.opciones.push(this.resultados[i]);
       }
-      if(this.resultados[i].categoria == 2){
+      if (this.resultados[i].categoria == 2) {
         this.tipo.push(this.resultados[i]);
       }
-      if(this.resultados[i].categoria == 4){
+      if (this.resultados[i].categoria == 4) {
         this.estado.push(this.resultados[i]);
       }
     }
@@ -136,9 +142,9 @@ export class DetailCalendarPage {
         this.title = this.resultados.asunto;
         this.fechaInicio = new Date(moment(this.resultados.fecha_inicio).toDate())
         //parseando la fecha con el formato requerido por el input calendar
-        if(this.resultados.fecha_fin != null){
+        if (this.resultados.fecha_fin != null) {
           this.fechaFin = new Date(moment(this.resultados.fecha_fin).toDate())
-        }else{
+        } else {
           this.fechaFin = null;
         }
         console.log("Get Detalle", this.resultados);
@@ -146,42 +152,46 @@ export class DetailCalendarPage {
   }
 
   actualizar(id) {
-    this.test.generalPut(`/actividad/${id}`, {
-      fechaInicio:this.fechaInicio,
-      fechaFin:moment(this.fechaFin).add(5, 'h').format(),
-      asunto: this.resultados.asunto,
-      idCliente: this.idCliente,
-      actualizadoPor: parseInt(localStorage.getItem("usuario"))
-    })
-      .then(data => {
-        this.detail = data;
-        console.log("Actualizando", this.detail);
-        this.closeModal()
+    this.storage.get('usuario').then((val) => {
+      this.test.generalPut(`/actividad/${id}`, {
+        fechaInicio: this.fechaInicio,
+        fechaFin: moment(this.fechaFin).add(5, 'h').format(),
+        asunto: this.resultados.asunto,
+        idCliente: this.idCliente,
+        actualizadoPor: parseInt(val)
       })
+        .then(data => {
+          this.detail = data;
+          console.log("Actualizando", this.detail);
+          this.closeModal()
+        })
+    })
   }
 
   closeModal() {
     this.navCtrl.pop()
   }
 
-  crear(){
-    this.test.generalPost(`/actividad`,{
-      fecha_inicio:moment(this.fechaInicial).add(5, 'h').format(),
-      fecha_fin:moment(this.fechaFin).add(5, 'h').format(),
-      asunto: this.asunto,
-      tipo_actividad: this.tipoActividad,
-      tipo: this.tipos,
-      prioridad: this.prioridades,
-      estado_actividad: this.estados,
-      idCliente: this.idCliente,
-      usuario: this.usuarios,
-      creadoPor: parseInt(localStorage.getItem("usuario"))
-  })
-      .then(data =>{
-        this.resultados = data;
-        console.log("Resultados Post", this.resultados);
-        this.closeModal();
+  crear() {
+    this.storage.get('usuario').then((val) => {
+      this.test.generalPost(`/actividad`, {
+        fecha_inicio: moment(this.fechaInicial).add(5, 'h').format(),
+        fecha_fin: moment(this.fechaFin).add(5, 'h').format(),
+        asunto: this.asunto,
+        descripcion: this.descripcion,
+        tipo_actividad: this.tipoActividad,
+        tipo: this.tipos,
+        prioridad: this.prioridades,
+        estado_actividad: this.estados,
+        idCliente: this.idCliente,
+        usuario: this.usuarios,
+        creadoPor: parseInt(val)
       })
-      
+        .then(data => {
+          this.resultados = data;
+          console.log("Resultados Post", this.resultados);
+          this.closeModal();
+        })
+    })
   }
 }

@@ -50,7 +50,8 @@
                         </ion-col>
                         <ion-col col-6>
                             <ion-label>Fecha Final : </ion-label>
-                            <p-calendar [(ngModel)]="fechaFin" name="Fecha Final" [minDate]="fechaInicio"  [readonlyInput]="true" placeholder="Fecha Final" required>
+                            <p-calendar [(ngModel)]="fechaFin" name="Fecha Final" [minDate]="fechaInicio"
+                                [readonlyInput]="true" placeholder="Fecha Final" required>
                             </p-calendar>
                         </ion-col>
                         <ion-item *ngIf="resultados.cliente_id">
@@ -94,6 +95,10 @@
                         <ion-input [(ngModel)]="asunto" name="Asunto" placeholder="Asunto" style="margin-top: .5em;"
                             required></ion-input>
                     </ion-item>
+                    <ion-item>
+                        <ion-input [(ngModel)]="descripcion" name="Descripcion" placeholder="Descripcion" style="margin-top: .5em;"
+                            required></ion-input>
+                    </ion-item>
                     <p-calendar [(ngModel)]="fechaInicial" name="Fecha Inicial" placeholder="Fecha Inicial" required></p-calendar>
                     <p-calendar [(ngModel)]="fechaFin" name="Fecha Final" placeholder="Fecha Final"></p-calendar>
                     <ion-item>
@@ -130,7 +135,7 @@
                     </button>
                     <ion-col *ngIf="agregarUsuario">
                         <p-autoComplete [(ngModel)]="texto" [suggestions]="results" field="nombres" name="cliente"
-                            (completeMethod)="Multisearch($event)" (onSelect)="Multiselect($event)" >
+                            (completeMethod)="Multisearch($event)" (onSelect)="Multiselect($event)">
                         </p-autoComplete>
                         <button ion-button type="button" (click)="addMulti()" color="light">
                             <ion-icon name="add-circle"></ion-icon>
@@ -138,8 +143,8 @@
                         <ion-item *ngFor="let u of usuarios">
                             {{u.nombres}}
                             <button ion-button type="button" (click)="dropMulti(u)" color="light">
-                                    <ion-icon name="close-circle"></ion-icon>
-                                </button>
+                                <ion-icon name="close-circle"></ion-icon>
+                            </button>
                         </ion-item>
                     </ion-col>
                     <button ion-button type="button" (click)="agregarCliente = true" color="default" icon-start small>
@@ -149,11 +154,11 @@
                         <p-autoComplete [(ngModel)]="text" [suggestions]="results" field="nombre" name="cliente"
                             (completeMethod)="search($event)" (onSelect)="select($event)">
                             <ng-template let-group pTemplate="item">
-                                    <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
-                                        <div style="font-size:18px;margin:10px 10px 0 0">{{group.nombre}}</div>
-                                        <div style="font-size:10px;margin:10px 10px 0 0">{{group.cn}}</div>
-                                    </div>
-                                </ng-template>
+                                <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
+                                    <div style="font-size:18px;margin:10px 10px 0 0">{{group.nombre}}</div>
+                                    <div style="font-size:10px;margin:10px 10px 0 0">{{group.cn}}</div>
+                                </div>
+                            </ng-template>
                         </p-autoComplete>
                         <button ion-button type="button" (click)="agregarCliente = false" color="light">
                             <ion-icon name="close-circle"></ion-icon>

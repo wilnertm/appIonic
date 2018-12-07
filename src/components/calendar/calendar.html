@@ -1,7 +1,17 @@
 <ion-grid>
   <ion-row>
     <ion-col col-12>
-        <p-fullCalendar [events]="events" [options]="options" ></p-fullCalendar>
+      <div>
+        <button id="notification-button" ion-button clear (click)="this.invitados()">
+          Invitaciones a Actividades
+          <ion-icon name="notifications">
+            <ion-badge id="notifications-badge" color="danger" >{{numConteo}}</ion-badge>
+          </ion-icon>
+        </button>
+      </div>
+    </ion-col>
+    <ion-col col-12>
+      <p-fullCalendar [events]="events" [options]="options"></p-fullCalendar>
     </ion-col>
   </ion-row>
 </ion-grid>
