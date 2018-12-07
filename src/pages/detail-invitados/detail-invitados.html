@@ -6,7 +6,7 @@
 
 
 <ion-content padding>
-  <ion-col col-12 *ngIf="resultados">
+  <ion-col col-12>
     <ion-col *ngFor="let u of resultados" col-6>
       <ion-card >
         <div class="card-title" style="padding-left: 1em;font-weight: bold;margin-bottom: 1em;">
@@ -27,7 +27,7 @@
       </ion-card>
     </ion-col>
   </ion-col>
-  <ion-col col-12 *ngIf="!resultados">
+  <!-- <ion-col col-12 *ngIf="!resultados">
     <p>No Tienes Invitaciones</p>
-  </ion-col>
+  </ion-col> -->
 </ion-content>

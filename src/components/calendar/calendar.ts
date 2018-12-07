@@ -100,6 +100,7 @@ export class CalendarComponent {
                     .then(data => {
                         this.events = data;
                         console.log("Actividades", this.events);
+                        this.conteo();
                         //Igualando los datos del get a los eventos del calendario
                     })
             }
