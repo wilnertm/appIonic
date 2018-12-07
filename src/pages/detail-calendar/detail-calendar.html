@@ -81,16 +81,9 @@
     </ion-grid>
 
     <ion-grid *ngIf="!resultados.id">
-        <ion-row>
-            <ion-col col-12>
-                <ion-item style="background-color: lightgrey;">
-                    <span></span>
-                </ion-item>
-            </ion-col>
-        </ion-row>
         <ion-row style="display: flex;justify-content: center;">
             <ion-col col-12 style="display: flex;justify-content: center;align-items: center;">
-                <form #crearActividad="ngForm" (ngSubmit)="crear()" style="width: 50%;">
+                <form #crearActividad="ngForm" (ngSubmit)="crear()" style="width: 100%;">
                     <ion-item>
                         <ion-input [(ngModel)]="asunto" name="Asunto" placeholder="Asunto" style="margin-top: .5em;"
                             required></ion-input>
@@ -99,8 +92,13 @@
                         <ion-input [(ngModel)]="descripcion" name="Descripcion" placeholder="Descripcion" style="margin-top: .5em;"
                             required></ion-input>
                     </ion-item>
-                    <p-calendar [(ngModel)]="fechaInicial" name="Fecha Inicial" placeholder="Fecha Inicial" required></p-calendar>
-                    <p-calendar [(ngModel)]="fechaFin" name="Fecha Final" placeholder="Fecha Final"></p-calendar>
+                    <div col-12>
+                        <p-calendar [(ngModel)]="fechaInicial" name="Fecha Inicial" placeholder="Fecha Inicial"
+                            required></p-calendar>
+                    </div>
+                    <div class="col-12">
+                        <p-calendar [(ngModel)]="fechaFin" name="Fecha Final" placeholder="Fecha Final"></p-calendar>
+                    </div>
                     <ion-item>
                         <ion-label>Tipo de Actividad</ion-label>
                         <ion-select [(ngModel)]="tipoActividad" name="idActividad" required>
