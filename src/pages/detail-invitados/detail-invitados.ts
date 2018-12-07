@@ -14,7 +14,8 @@ export class DetailInvitadosPage {
 
   public resultados: any [] = [];
   public actualizacion: any = {};
-  detail: boolean = true;
+  detail: boolean = false;
+  vacio: boolean;
 
   constructor(
     public navCtrl: NavController, 
@@ -35,6 +36,16 @@ export class DetailInvitadosPage {
       })
       .then( data =>{
         this.resultados = data;
+        console.log("Longitud",this.resultados.length)
+        if(this.resultados.length == 0){
+          this.vacio = true;
+          console.log("Vacio:",this.vacio);
+          
+        }
+        else{
+          this.vacio = false;
+          console.log("Datos",this.vacio)
+        }
         console.log(this.resultados,"Resultados");
       })
     })
@@ -42,7 +53,6 @@ export class DetailInvitadosPage {
   }
   prueba(id){
     // alert("Prueba")
-    this.detail = false;
     this.test.generalPut(`/actividad_invitado/${id}`,{
       acepto: true
     })
