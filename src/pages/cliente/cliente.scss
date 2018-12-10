@@ -1,4 +1,14 @@
 page-cliente {
+
+    body .ui-table .ui-table-caption {
+        background-color: #373b3e !important;
+    }
+    body .ui-table .ui-table-caption, body .ui-table .ui-table-summary {
+        background-color: #373b3e !important;
+    }
+    .ui-table-caption .ui-widget-header{
+        background-color: #373b3e !important;
+    }
     p-table{
         width: 100%;
     }
